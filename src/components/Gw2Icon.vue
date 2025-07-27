@@ -4,11 +4,19 @@
         :class="{ 'inactive': inactive }"
     >
         <img
+            v-if="icon != null"
             class="icon"
             :class="{'hexagon': hexagonIcon }"
             :style="iconSizeStyle"
             :src="icon"
         >
+        <div
+            v-else
+            class="icon"
+            :class="{'hexagon': hexagonIcon, 'bg-loading': icon == null }"
+            :style="iconSizeStyle"
+        />
+
         <span
             v-if="showLabel"
             class="ml-1"
@@ -82,5 +90,9 @@ export default {
 
 .icon.hexagon {
     clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+}
+
+.hidden {
+    visibility: hidden;
 }
 </style>

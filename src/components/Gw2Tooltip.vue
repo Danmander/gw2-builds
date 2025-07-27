@@ -5,6 +5,7 @@
         content-class="tooltip-content pa-0"
         z-index="1"
         max-width="400"
+        :disabled="disabled"
     >
         <template #activator="{ props }">
             <slot
@@ -20,6 +21,14 @@
 </template>
 
 <script>
+export default {
+    props: {
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    }
+}
 </script>
 
 <style scoped>

@@ -138,6 +138,7 @@
                 <gw2-skill
                     v-for="(skillId, index) in utilitySkillIds"
                     :key="index"
+                    :gw2-icon-props="{ 'class': { 'ml-2': index !== 0 } }"
                     :id="skillId"
                     tile
                 />

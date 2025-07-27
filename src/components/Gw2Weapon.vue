@@ -1,5 +1,5 @@
 <template>
-    <gw2-tooltip>
+    <gw2-tooltip :disabled="data === null">
         <template #activator="{ props }">
             <gw2-icon
                 class="item text-primary"
@@ -140,6 +140,7 @@ export default {
             return null;
         },
         searchItemOnWiki() {
+            if(this.data === null) return;
             window.open(`http://wiki.guildwars2.com/wiki/Special:Search/${this.data.name}`);
         }
     }

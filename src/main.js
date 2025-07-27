@@ -13,12 +13,12 @@ const customTheme = {
     dark: true,
     colors: {
         'background-darken-1': '#1a1a1a',
-        'background': '#1c1c1e',
+        'background': '#1c1c1c',
         'background-lighten-1': '#9a9a9a',
         'background-lighten-2': '#ebebeb',
 
         'surface': '#242424',
-        'on-surface-loading': '#212121',
+        'loading': '#282828',
 
         'primary': '#efaac4',
         'primary-lighten-1': '#f4c4d6',
