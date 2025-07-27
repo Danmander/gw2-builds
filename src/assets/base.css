@@ -23,7 +23,10 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   color: rgb(var(--v-theme-background-lighten-2));
-  background: rgb(var(--v-theme-background));
+  background-color: rgb(var(--v-theme-background));
+  background-image: url(./images/background-texture.png);
+  background-size: cover;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
