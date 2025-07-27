@@ -1,0 +1,27 @@
+const WeaponType = Object.freeze({
+    Axe: "Axe",
+    Dagger: "Dagger",
+    Mace: "Mace",
+    Pistol: "Pistol",
+    Scepter: "Scepter",
+    Sword: "Sword",
+    Focus: "Focus",
+    Shield: "Shield",
+    Torch: "Torch",
+    Warhorn: "Warhorn",
+    Greatsword: "Greatsword",
+    Hammer: "Hammer",
+    Longbow: "LongBow",
+    Rifle: "Rifle",
+    Shortbow: "ShortBow",
+    Staff: "Staff",
+    Harpoon: "Harpoon",
+    Speargun: "Speargun",
+    Trident: "Trident",
+    LargeBundle: "LargeBundle",
+    SmallBundle: "SmallBundle",
+    Toy: "Toy",
+    TwoHandedToy: "ToyTwoHanded",
+});
+
+export default WeaponType;
