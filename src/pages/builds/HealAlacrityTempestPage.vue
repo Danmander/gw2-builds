@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import GearAndTemplateShowcase from '../../components/layout2/GearAndTemplateShowcase.vue';
+import GearAndTemplateShowcase from '../../components/layout/GearAndTemplateShowcase.vue';
 import ArmorWeightClass from '../../enums/armorWeightClass';
 import { ArmorInfix, TrinketInfix, WeaponInfix } from '../../enums/infixUpgrade';
 import WeaponType from '../../enums/weaponType';
