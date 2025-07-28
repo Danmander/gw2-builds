@@ -116,7 +116,8 @@ export default {
 
 <style scoped>
 .trait-line {
-    width: auto;
+    width: 100%;
+    min-width: 450px;
     max-width: 700px;
     min-height: 144px;
     aspect-ratio: 583/123; /* Size ratio of trait lines in game */
