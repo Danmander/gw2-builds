@@ -133,29 +133,39 @@
         dense
         class="mt-2"
     >
-        <v-col cols="auto">
-            <div class="bg-surface pa-4 rounded elevation-1">
-                <gw2-skill
-                    v-for="(skillId, index) in utilitySkillIds"
+        <v-col
+            cols="12"
+            md="6"
+        >
+            <div class="position-sticky">
+                <div class="utility-skills bg-surface pa-4 rounded elevation-1">
+                    <gw2-skill
+                        v-for="(skillId, index) in utilitySkillIds"
+                        :key="index"
+                        :gw2-icon-props="{ 'class': { 'ml-2': index !== 0 } }"
+                        :id="skillId"
+                        tile
+                    />
+                </div>
+
+                <gw2-trait-line
+                    v-for="(traitLine, index) in traitLines"
                     :key="index"
-                    :gw2-icon-props="{ 'class': { 'ml-2': index !== 0 } }"
-                    :id="skillId"
-                    tile
+                    class="mt-2 elevation-1"
+                    :id="traitLine.id"
+                    :selected-trait-ids="traitLine.traitIds ?? []"
                 />
             </div>
-
-            <gw2-trait-line
-                v-for="(traitLine, index) in traitLines"
-                :key="index"
-                style="width: auto;"
-                class="mt-2 elevation-1"
-                :id="traitLine.id"
-                :selected-trait-ids="traitLine.traitIds ?? []"
-            />
         </v-col>
-        <v-col v-show="$slots.info">
-            <div class="bg-surface pa-4 rounded elevation-1">
-                <slot name="info" />
+        <v-col
+            cols="12"
+            md="6"
+            v-show="$slots.info"
+        >
+            <div class="position-sticky">
+                <div class="bg-surface pa-4 rounded elevation-1">
+                    <slot name="info" />
+                </div>
             </div>
         </v-col>
     </v-row>
@@ -248,5 +258,13 @@ export default {
 <style scoped>
 .flex-align-self-center {
     align-self: center;
+}
+
+.utility-skills {
+    max-width: 700px; /* Same as the trait lines */
+}
+
+.position-sticky {
+    top: 8px;
 }
 </style>
