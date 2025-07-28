@@ -55,16 +55,10 @@ vueApp.use(vuetify);
 
 // Router
 import { createWebHistory, createRouter } from 'vue-router';
-import HomePage from './pages/HomePage.vue';
-import HealAlacrityTempestPage from './pages/builds/HealAlacrityTempestPage.vue';
-import TestPage from './pages/TestPage.vue';
+import routes from './routes';
 const router = createRouter({
     history: createWebHistory(),
-    routes: [
-        { path: '/builds/heal-alacrity-tempest', component: HealAlacrityTempestPage },
-        { path: '/test', component: TestPage },
-        { path: '/:pathMatch(.*)*', component: HomePage },
-    ],
+    routes: routes,
 });
 vueApp.use(router);
 

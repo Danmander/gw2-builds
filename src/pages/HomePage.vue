@@ -5,10 +5,10 @@
     <router-link
         v-for="(route, index) in routes"
         :key="index"
-        :to="route.path"
+        :to="route"
         class="d-block"
     >
-        {{ route.path }}
+        {{ route }}
     </router-link>
 </template>
 
@@ -17,7 +17,19 @@
 export default {
     computed: {
         routes() {
-            return this.$router.options.routes;
+            const flatten = function (currentPath, routes) {
+                const childRoutes = [];
+                routes.forEach(route => {
+                    if(route.children === undefined) {
+                        childRoutes.push(currentPath + route.path + '/');
+                    } else {
+                        childRoutes.push(...flatten(currentPath + route.path + '/', route.children));
+                    }
+                });
+                return childRoutes;
+            }
+
+            return flatten('', this.$router.options.routes);
         }
     }
 }
