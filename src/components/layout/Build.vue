@@ -1,6 +1,6 @@
 <template>
     <!-- Equipment -->
-    <div class="bg-surface pa-4 rounded elevation-1">
+    <container>
         <v-row dense>
             <v-col
                 cols="12"
@@ -126,7 +126,7 @@
                 </div>
             </v-col>
         </v-row>
-    </div>
+    </container>
     
     <!-- Build -->
     <v-row
@@ -138,7 +138,7 @@
             md="6"
         >
             <div class="position-sticky">
-                <div class="utility-skills bg-surface pa-4 rounded elevation-1">
+                <container class="utility-skills">
                     <gw2-skill
                         v-for="(skillId, index) in utilitySkillIds"
                         :key="index"
@@ -146,7 +146,7 @@
                         :id="skillId"
                         tile
                     />
-                </div>
+                </container>
 
                 <gw2-trait-line
                     v-for="(traitLine, index) in traitLines"
@@ -163,9 +163,7 @@
             v-show="$slots.info"
         >
             <div class="position-sticky">
-                <div class="bg-surface pa-4 rounded elevation-1">
-                    <slot name="info" />
-                </div>
+                <slot name="info" />
             </div>
         </v-col>
     </v-row>
@@ -180,9 +178,10 @@ import Gw2UpgradeComponent from '../Gw2UpgradeComponent.vue';
 import Gw2Consumable from '../Gw2Consumable.vue';
 import Gw2Relic from '../Gw2Relic.vue';
 import Gw2Trinket from '../Gw2Trinket.vue';
-import ArmorType from '../../enums/armorType';
+import ArmorType from '../../enums/armorType.js';
 import TrinketType from '../../enums/trinketType.js';
 import { transformInfixUpgrade } from '../../services/transformerService.js';
+import Container from './Container.vue';
 
 export default {
     components: {
@@ -193,7 +192,8 @@ export default {
         Gw2UpgradeComponent,
         Gw2Consumable,
         Gw2Relic,
-        Gw2Trinket
+        Gw2Trinket,
+        Container
     },
     props: {
         utilitySkillIds: {

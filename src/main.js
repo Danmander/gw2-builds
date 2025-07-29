@@ -17,8 +17,8 @@ const customTheme = {
         'background-lighten-1': '#9a9a9a',
         'background-lighten-2': '#ebebeb',
 
-        'surface': '#242424',
-        'loading': '#282828',
+        'surface': '#262626',
+        'loading': '#2a2a2a',
 
         'primary': '#efaac4',
         'primary-lighten-1': '#f4c4d6',

@@ -9,7 +9,10 @@ module.exports = {
         ecmaVersion: 'latest'
     },
     rules: {
-        indent: ["error", 4],
-        "vue/html-indent": ["error", 4]
+        "indent": ["error", 4],
+        "vue/html-indent": ["error", 4],
+        "vue/multi-word-component-names": ["error", {
+            "ignores": ["Build", "Expander", "Container"]
+        }]
     }
 }
