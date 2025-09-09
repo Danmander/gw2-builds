@@ -82,13 +82,13 @@ export default {
         Gw2Armor,
         Gw2Weapon,
         Gw2UpgradeComponent,
-        Gw2Relic,
+        Gw2Relic
     },
     data() {
         return {
             ArmorType,
             WeaponType,
-            ArmorInfix
+            ArmorInfix,
         }
     }
 }
