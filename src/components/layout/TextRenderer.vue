@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex-inline align-center plain-text">
+    <div class="text-renderer d-flex-inline align-center">
         <!-- We're using the raw string value as a key for components so they get re-rendered if they change. -->
         <!-- For plain text and newlines we're just using index as that's the only thing that changes about them. -->
         <component
@@ -29,6 +29,7 @@ import Gw2Trinket from '../Gw2Trinket.vue';
 import Gw2UpgradeComponent from '../Gw2UpgradeComponent.vue';
 import Gw2Weapon from '../Gw2Weapon.vue';
 import WeaponType from '../../enums/weaponType';
+import { VIcon } from 'vuetify/components';
 
 export default {
     computed: {
@@ -37,7 +38,7 @@ export default {
 
             const textToParse = this.$slots.default()[0].children;
             // We have to use non-capturing groups as otherwise the values in these groups would be removed when the split function is executed.
-            const nodes = textToParse.trim().split(/((?:\n)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
+            const nodes = textToParse.trim().split(/((?:\n)|(?:->)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
             for (let index = 0; index < nodes.length; index++) {
                 const node = nodes[index];
 
@@ -52,6 +53,18 @@ export default {
                     continue;
                 }
 
+                // We wanted custom markdown arrows so that's why we create an arrow icon here
+                if(node === "->") {
+                    components.push({
+                        type: VIcon,
+                        props:{
+                            icon: "mdi-arrow-right-thin",
+                            class: "vertical-align-middle"
+                        }
+                    });
+                    continue;
+                }
+
                 // Retrieve the type and properties of the element
                 const matches = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
 
@@ -61,7 +74,7 @@ export default {
                         type: "span",
                         content: node,
                         props: {
-                            class: "d-inline-flex plain-text"
+                            class: "d-inline-flex text-pre-wrap vertical-align-middle"
                         }
                     });
                     continue;
@@ -79,7 +92,10 @@ export default {
                             infix: ArmorInfix[properties[0]],
                             type: ArmorType[properties[1]],
                             weightClass: ArmorWeightClass[properties[2]],
-                            runeId: parseInt(properties[3])
+                            runeId: parseInt(properties[3]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "consumable" && properties.length >= 1) {
@@ -87,7 +103,10 @@ export default {
                         raw: node,
                         type: Gw2Consumable,
                         props: {
-                            id: parseInt(properties[0])
+                            id: parseInt(properties[0]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "relic" && properties.length >= 1) {
@@ -95,7 +114,10 @@ export default {
                         raw: node,
                         type: Gw2Relic,
                         props: {
-                            id: parseInt(properties[0])
+                            id: parseInt(properties[0]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "skill" && properties.length >= 1) {
@@ -103,7 +125,10 @@ export default {
                         raw: node,
                         type: Gw2Skill,
                         props: {
-                            id: parseInt(properties[0])
+                            id: parseInt(properties[0]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "trait" && properties.length >= 1) {
@@ -111,7 +136,10 @@ export default {
                         raw: node,
                         type: Gw2Trait,
                         props: {
-                            id: parseInt(properties[0])
+                            id: parseInt(properties[0]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "traitline" && properties.length >= 2) {
@@ -120,7 +148,10 @@ export default {
                         type: Gw2TraitLine,
                         props: {
                             id: parseInt(properties[0]),
-                            selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value))
+                            selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value)),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "trinket" && properties.length >= 2) {
@@ -129,7 +160,10 @@ export default {
                         type: Gw2Trinket,
                         props: {
                             infix: TrinketInfix[properties[0]],
-                            type: TrinketType[properties[1]]
+                            type: TrinketType[properties[1]],
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "component" && properties.length >= 1) {
@@ -137,7 +171,10 @@ export default {
                         raw: node,
                         type: Gw2UpgradeComponent,
                         props: {
-                            id: parseInt(properties[0])
+                            id: parseInt(properties[0]),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else if(type === "weapon" && properties.length >= 3) {
@@ -147,7 +184,10 @@ export default {
                         props: {
                             infix: WeaponInfix[properties[0]],
                             type: WeaponType[properties[1]],
-                            sigilIds: properties[2].split(",").filter(value => value !== "").map(value => parseInt(value))
+                            sigilIds: properties[2].split(",").filter(value => value !== "").map(value => parseInt(value)),
+                            gw2IconProps: {
+                                class: "vertical-align-middle"
+                            }
                         }
                     });
                 } else {
@@ -156,7 +196,7 @@ export default {
                         type: "span",
                         content: node,
                         props: {
-                            class: "d-inline-flex text-error"
+                            class: "d-inline-flex vertical-align-middle text-error"
                         }
                     });
                 }
@@ -169,7 +209,8 @@ export default {
 </script>
 
 <style scoped>
-.plain-text {
-    white-space: pre-wrap;
+.vertical-align-middle,
+.text-renderer:deep(.vertical-align-middle) {
+    vertical-align: middle;
 }
 </style>
