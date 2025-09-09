@@ -1,12 +1,20 @@
 <template>
-    <div class="text-renderer d-flex-inline align-center">
+    <div class="text-renderer d-flex-inline">
+        <span v-html="'<gw2-skill :id=\'15718\'/>'" />
         <component
-            v-for="(component) in components"
-            :key="component.key"
-            :is="component.type"
-            v-bind="component.props"
+            v-for="(componentGroup) in components"
+            :key="componentGroup.key"
+            :is="componentGroup.type"
+            class="line"
         >
-            {{ component.content }}
+            <component
+                v-for="(component) in componentGroup.components"
+                :key="component.key"
+                :is="component.type"
+                v-bind="component.props"
+            >
+                {{ component.content }}
+            </component>
         </component>
     </div>
 </template>
@@ -50,183 +58,191 @@ export default {
                 return `${signature}:${keyStore[signature]}`
             }
 
-            const components = [];
+            const componentGroups = [];
 
-            // We have to use non-capturing groups as otherwise the values in these groups would be removed when the split function is executed.
-            const nodes = this.text.trim().split(/((?:\n)|(?:->)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
-            for (let index = 0; index < nodes.length; index++) {
-                const node = nodes[index];
+            const lines = this.text.trim().split("\n");
+            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+                const line = lines[lineIndex];
+                const components = [];
+            
+                // We have to use non-capturing sub groups as otherwise the values in these groups would be removed when the split function is executed.
+                const nodes = line.split(/((?:->)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
+                for (let index = 0; index < nodes.length; index++) {
+                    const node = nodes[index];
 
-                // Rendering empty elements is just overhead which we don't want.
-                if(node === null || node === '' || node === undefined) continue;
+                    // Rendering empty elements is just overhead which we don't want.
+                    if(node === null || node === '' || node === undefined) continue;
 
-                // Check if we're dealing with a newline, in which case we want to insert a line break to start that new line.
-                if(node === "\n") {
-                    components.push({
-                        type: "br"
-                    });
-                    continue;
+                    // We wanted custom markdown arrows so that's why we create an arrow icon here
+                    if(node === "->") {
+                        components.push({
+                            key: getKey(node),
+                            type: VIcon,
+                            props:{
+                                icon: "mdi-arrow-right-thin",
+                                class: "vertical-align-middle"
+                            }
+                        });
+                        continue;
+                    }
+
+                    // Retrieve the type and properties of the element
+                    const matches = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
+
+                    // If nothing matches (a.k.a. no type and properties are found) it's just plain text
+                    if(matches === null) {
+                        components.push({
+                            key: getKey(node),
+                            type: "span",
+                            content: node,
+                            props: {
+                                class: "text-pre-wrap vertical-align-middle"
+                            }
+                        });
+                        continue;
+                    }
+
+                    // Figure out the type and properties of the component
+                    const type = matches[1].toLowerCase();
+                    const properties = matches[2].split(":");
+
+                    if(type === "armor" && properties.length >= 3) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Armor,
+                            props: {
+                                infix: ArmorInfix[properties[0]],
+                                type: ArmorType[properties[1]],
+                                weightClass: ArmorWeightClass[properties[2]],
+                                runeId: properties[3] === undefined ? null : parseInt(properties[3]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "consumable" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Consumable,
+                            props: {
+                                id: parseInt(properties[0]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "relic" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Relic,
+                            props: {
+                                id: parseInt(properties[0]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "skill" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Skill,
+                            props: {
+                                id: parseInt(properties[0]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "trait" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Trait,
+                            props: {
+                                id: parseInt(properties[0]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "traitline" && properties.length >= 2) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2TraitLine,
+                            props: {
+                                id: parseInt(properties[0]),
+                                selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "trinket" && properties.length >= 2) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Trinket,
+                            props: {
+                                infix: TrinketInfix[properties[0]],
+                                type: TrinketType[properties[1]],
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "component" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2UpgradeComponent,
+                            props: {
+                                id: parseInt(properties[0]),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "weapon" && properties.length >= 2) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2Weapon,
+                            props: {
+                                infix: WeaponInfix[properties[0]],
+                                type: WeaponType[properties[1]],
+                                sigilIds: (properties[2] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else {
+                        // This should never happen, but just in case we'll show an error so we know we should fix it.
+                        components.push({
+                            key: getKey(node),
+                            type: "span",
+                            content: node,
+                            props: {
+                                class: "vertical-align-middle text-error"
+                            }
+                        });
+                    }
                 }
 
-                // We wanted custom markdown arrows so that's why we create an arrow icon here
-                if(node === "->") {
-                    components.push({
-                        key: getKey(node),
-                        type: VIcon,
-                        props:{
-                            icon: "mdi-arrow-right-thin",
-                            class: "vertical-align-middle"
-                        }
-                    });
-                    continue;
-                }
-
-                // Retrieve the type and properties of the element
-                const matches = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
-
-                // If nothing matches (a.k.a. no type and properties are found) it's just plain text
-                if(matches === null) {
-                    components.push({
-                        key: getKey(node),
-                        type: "span",
-                        content: node,
-                        props: {
-                            class: "d-inline-flex text-pre-wrap vertical-align-middle"
-                        }
-                    });
-                    continue;
-                }
-
-                // Figure out the type and properties of the component
-                const type = matches[1].toLowerCase();
-                const properties = matches[2].split(":");
-
-                if(type === "armor" && properties.length >= 3) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Armor,
-                        props: {
-                            infix: ArmorInfix[properties[0]],
-                            type: ArmorType[properties[1]],
-                            weightClass: ArmorWeightClass[properties[2]],
-                            runeId: properties[3] === undefined ? null : parseInt(properties[3]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "consumable" && properties.length >= 1) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Consumable,
-                        props: {
-                            id: parseInt(properties[0]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "relic" && properties.length >= 1) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Relic,
-                        props: {
-                            id: parseInt(properties[0]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "skill" && properties.length >= 1) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Skill,
-                        props: {
-                            id: parseInt(properties[0]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "trait" && properties.length >= 1) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Trait,
-                        props: {
-                            id: parseInt(properties[0]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "traitline" && properties.length >= 2) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2TraitLine,
-                        props: {
-                            id: parseInt(properties[0]),
-                            selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value)),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "trinket" && properties.length >= 2) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Trinket,
-                        props: {
-                            infix: TrinketInfix[properties[0]],
-                            type: TrinketType[properties[1]],
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "component" && properties.length >= 1) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2UpgradeComponent,
-                        props: {
-                            id: parseInt(properties[0]),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else if(type === "weapon" && properties.length >= 2) {
-                    components.push({
-                        key: getKey(node),
-                        type: Gw2Weapon,
-                        props: {
-                            infix: WeaponInfix[properties[0]],
-                            type: WeaponType[properties[1]],
-                            sigilIds: (properties[2] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
-                            gw2IconProps: {
-                                class: "vertical-align-middle"
-                            }
-                        }
-                    });
-                } else {
-                    // This should never happen, but just in case we'll show an error so we know we should fix it.
-                    components.push({
-                        key: getKey(node),
-                        type: "span",
-                        content: node,
-                        props: {
-                            class: "d-inline-flex vertical-align-middle text-error"
-                        }
-                    });
-                }
+                componentGroups.push({
+                    key: getKey(line === "" ? "div" : "p"),
+                    type: line === "" ? "div" : "p",
+                    components: components
+                });
             }
 
-            return components;
+            return componentGroups;
         }
     }
 }
 </script>
 
 <style scoped>
+.line {
+    min-height: 21px;
+}
+
 .vertical-align-middle,
 .text-renderer:deep(.vertical-align-middle) {
     vertical-align: middle;
