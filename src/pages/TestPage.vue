@@ -58,6 +58,13 @@
     <gw2-trait-line class="mt-2" :id="37" :selected-trait-ids="[1487, 265, 238]" />
     <gw2-trait-line class="mt-2" :id="17" :selected-trait-ids="[360, 358, 2028]" />
     <gw2-trait-line class="mt-2" :id="48" :selected-trait-ids="[1962, 2015, 2033]" />
+
+    <hr>
+
+    <v-textarea v-model="textRendererText" />
+    <text-renderer>
+        {{ textRendererText }}
+    </text-renderer>
 </template>
 
 <script>
@@ -72,6 +79,7 @@ import Gw2TraitLine from '../components/Gw2TraitLine.vue';
 import ArmorType from '../enums/armorType';
 import WeaponType from '../enums/weaponType';
 import { ArmorInfix } from '../enums/infixUpgrade';
+import TextRenderer from '../components/Layout/TextRenderer.vue';
 
 export default {
     components: {
@@ -83,12 +91,15 @@ export default {
         Gw2Weapon,
         Gw2UpgradeComponent,
         Gw2Relic,
+        TextRenderer
     },
     data() {
         return {
             ArmorType,
             WeaponType,
-            ArmorInfix
+            ArmorInfix,
+
+            textRendererText: "[Armor:Harrier:Headgear:Light:24842],[Consumable:67528],\n[Relic:101268],\n[Skill:30662],\n[Trait:1673],\n[Trinket:Harrier:Ring],\n[Component:84307],\n[Weapon:Harrier:Warhorn:24615,24639,24575],\n[Traitline:37:1487,265,238]"
         }
     }
 }
