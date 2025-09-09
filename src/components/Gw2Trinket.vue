@@ -26,23 +26,6 @@
                     +{{ attributes.modifier }} {{ transformAttribute(attributes.attribute) }}
                 </div>
 
-                <!-- Sigil info -->
-                <div
-                    v-for="(sigilData, index) in sigilsData"
-                    :key="index"
-                    class="mt-4"
-                >
-                    <gw2-icon
-                        class="text-bonus"
-                        :icon="sigilData.icon"
-                        show-label
-                        :label="sigilData.name"
-                    />
-                    <div class="text-bonus">
-                        {{ sigilData?.details?.infix_upgrade?.buff?.description }}
-                    </div>
-                </div>
-
                 <!-- Flavor info -->
                 <div class="text-faded mt-2">
                     <div>
