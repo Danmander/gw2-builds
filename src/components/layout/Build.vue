@@ -1,6 +1,6 @@
 <template>
     <!-- Equipment -->
-    <div class="bg-surface pa-4 rounded elevation-1">
+    <container>
         <v-row dense>
             <v-col
                 cols="12"
@@ -8,6 +8,9 @@
                 md="4"
             >
                 <!-- Armor -->
+                <div class="gear-header mb-2">
+                    Armor
+                </div>
                 <div
                     v-for="(armorType, index) in [ArmorType.Headgear, ArmorType.Shoulders, ArmorType.Chest, ArmorType.Gloves, ArmorType.Leggings, ArmorType.Boots]"
                     :key="index"
@@ -43,6 +46,9 @@
                 md="4"
             >
                 <!-- Trinket -->
+                <div class="gear-header mb-2">
+                    Trinkets
+                </div>
                 <div
                     v-for="(trinketType, index) in [TrinketType.Backpack, TrinketType.Accessory, TrinketType.Accessory, TrinketType.Amulet, TrinketType.Ring, TrinketType.Ring]"
                     :key="index"
@@ -71,7 +77,10 @@
                 sm="6"
                 md="4"
             >
-                <!-- Weapons -->            
+                <!-- Weapons -->  
+                <div class="gear-header mb-2">
+                    Weapons
+                </div>          
                 <div
                     v-for="(weapon, index) in weapons"
                     :key="index"
@@ -104,14 +113,20 @@
                 </div>
                 
                 <!-- Relic -->
+                <div class="gear-header mb-2 mt-2">
+                    Relics
+                </div>
                 <div class="mt-2">
                     <gw2-relic
                         :gw2-icon-props="{ 'size': 56, 'labelClass': 'ml-2' }"
                         :id="relicId"
                     />
                 </div>
-
+                
                 <!-- Consumables -->
+                <div class="gear-header mb-2 mt-2">
+                    Food & Utility
+                </div>
                 <div class="mt-2">
                     <gw2-consumable
                         :gw2-icon-props="{ 'size': 56, 'labelClass': 'ml-2' }"
@@ -126,7 +141,7 @@
                 </div>
             </v-col>
         </v-row>
-    </div>
+    </container>
     
     <!-- Build -->
     <v-row
@@ -135,23 +150,16 @@
     >
         <v-col
             cols="12"
+            order="2"
             md="6"
+            order-md="1"
         >
             <div class="position-sticky">
-                <div class="utility-skills bg-surface pa-4 rounded elevation-1">
-                    <gw2-skill
-                        v-for="(skillId, index) in utilitySkillIds"
-                        :key="index"
-                        :gw2-icon-props="{ 'class': { 'ml-2': index !== 0 } }"
-                        :id="skillId"
-                        tile
-                    />
-                </div>
-
                 <gw2-trait-line
                     v-for="(traitLine, index) in traitLines"
                     :key="index"
-                    class="mt-2 elevation-1"
+                    class="elevation-1"
+                    :class="{ 'mt-2': index !== 0 }"
                     :id="traitLine.id"
                     :selected-trait-ids="traitLine.traitIds ?? []"
                 />
@@ -159,13 +167,44 @@
         </v-col>
         <v-col
             cols="12"
+            order="1"
             md="6"
-            v-show="$slots.info"
+            order-md="2"
+        >
+            <container class="mb-2">
+                <gw2-skill
+                    v-for="(skillId, index) in utilitySkillIds"
+                    :key="index"
+                    :gw2-icon-props="{ 'class': { 'ml-2': index !== 0 } }"
+                    :id="skillId"
+                    tile
+                />
+            </container>
+            
+            <slot name="skill-notes" />
+
+            <div class="position-sticky">
+                <slot name="trait-notes" />
+            </div>
+        </v-col>
+        <v-col
+            cols="12"
+            order="3"
+            md="6"
+            v-show="$slots.rotation"
         >
             <div class="position-sticky">
-                <div class="bg-surface pa-4 rounded elevation-1">
-                    <slot name="info" />
-                </div>
+                <slot name="rotation" />
+            </div>
+        </v-col>
+        <v-col
+            cols="12"
+            order="4"
+            md="6"
+            v-show="$slots.video"
+        >
+            <div class="position-sticky">
+                <slot name="video" />
             </div>
         </v-col>
     </v-row>
@@ -180,9 +219,10 @@ import Gw2UpgradeComponent from '../Gw2UpgradeComponent.vue';
 import Gw2Consumable from '../Gw2Consumable.vue';
 import Gw2Relic from '../Gw2Relic.vue';
 import Gw2Trinket from '../Gw2Trinket.vue';
-import ArmorType from '../../enums/armorType';
+import ArmorType from '../../enums/armorType.js';
 import TrinketType from '../../enums/trinketType.js';
 import { transformInfixUpgrade } from '../../services/transformerService.js';
+import Container from './Container.vue';
 
 export default {
     components: {
@@ -193,7 +233,8 @@ export default {
         Gw2UpgradeComponent,
         Gw2Consumable,
         Gw2Relic,
-        Gw2Trinket
+        Gw2Trinket,
+        Container
     },
     props: {
         utilitySkillIds: {
@@ -260,11 +301,13 @@ export default {
     align-self: center;
 }
 
-.utility-skills {
-    max-width: 700px; /* Same as the trait lines */
-}
-
 .position-sticky {
     top: 8px;
+}
+
+.gear-header {
+    /* color: rgb(var(--v-theme-faded)); */
+    font-size: 1.075rem;
+    border-bottom: solid 1px rgb(var(--v-theme-faded));
 }
 </style>

@@ -118,8 +118,9 @@ export default {
 .trait-line {
     width: 100%;
     min-width: 450px;
-    max-width: 700px;
-    min-height: 144px;
+    max-width: 1200px;
+    min-height: 142px;
+    max-height: 155px;
     aspect-ratio: 583/123; /* Size ratio of trait lines in game */
     background-color: black; /* Darkens the image when combined with the trait line image opacity */
     padding-left: 200px; /* 850/240 ratio */
