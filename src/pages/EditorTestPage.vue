@@ -9,15 +9,13 @@
             />
         </v-col>
         <v-col cols="6">
-            <text-renderer>
-                {{ textRendererText }}
-            </text-renderer>
+            <text-renderer :text="textRendererText" />
         </v-col>
     </v-row>
 </template>
 
 <script>
-import TextRenderer from '../components/Layout/TextRenderer.vue';
+import TextRenderer from '../components/layout/TextRenderer.vue';
 
 export default {
     components: {

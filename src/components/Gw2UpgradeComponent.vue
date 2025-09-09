@@ -20,7 +20,6 @@
                 <!-- Useful info -->
                 <div
                     v-if="data?.details?.infix_upgrade?.buff !== undefined"
-                    :key="index"
                     class="text-bonus white-space-pre-line"
                 >
                     {{ data.details.infix_upgrade.buff.description }}
