@@ -1,8 +1,10 @@
 <template>
     <div class="d-flex-inline align-center plain-text">
+        <!-- We're using the raw string value as a key for components so they get re-rendered if they change. -->
+        <!-- For plain text and newlines we're just using index as that's the only thing that changes about them. -->
         <component
             v-for="(component, index) in components"
-            :key="index"
+            :key="component.raw ?? index"
             :is="component.type"
             v-bind="component.props"
         >
@@ -33,22 +35,31 @@ export default {
         components() {
             const components = [];
 
-            const textToParse = this.$slots.default()[0].children; // TODO: allow for new lines
-            const parts = textToParse.trim().split(/(\[(?:armor|consumable|relic|skill|trait|traitline|trinket|component|weapon):(?:[^\]]+)])/gi);
-            for (let index = 0; index < parts.length; index++) {
-                const part = parts[index];
+            const textToParse = this.$slots.default()[0].children;
+            // We have to use non-capturing groups as otherwise the values in these groups would be removed when the split function is executed.
+            const nodes = textToParse.trim().split(/((?:\n)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
+            for (let index = 0; index < nodes.length; index++) {
+                const node = nodes[index];
 
-                // We don't want to render empty elements so we just skip them here
-                if(part === null || part === '' || part === undefined) continue;
+                // Rendering empty elements is just overhead which we don't want.
+                if(node === null || node === '' || node === undefined) continue;
+
+                // Check if we're dealing with a newline, in which case we want to insert a line break to start that new line.
+                if(node === "\n") {
+                    components.push({
+                        type: "br"
+                    });
+                    continue;
+                }
 
                 // Retrieve the type and properties of the element
-                const matches = part.match(/\[(armor|consumable|relic|skill|trait|traitline|trinket|component|weapon):([^\]]+)]/i);
+                const matches = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
 
                 // If nothing matches (a.k.a. no type and properties are found) it's just plain text
                 if(matches === null) {
                     components.push({
                         type: "span",
-                        content: part,
+                        content: node,
                         props: {
                             class: "d-inline-flex plain-text"
                         }
@@ -60,8 +71,9 @@ export default {
                 const type = matches[1].toLowerCase();
                 const properties = matches[2].split(":");
 
-                if(type === "armor") {
+                if(type === "armor" && properties.length >= 4) {
                     components.push({
+                        raw: node,
                         type: Gw2Armor,
                         props: {
                             infix: ArmorInfix[properties[0]],
@@ -70,71 +82,79 @@ export default {
                             runeId: parseInt(properties[3])
                         }
                     });
-                } else if(type === "consumable") {
+                } else if(type === "consumable" && properties.length >= 1) {
                     components.push({
+                        raw: node,
                         type: Gw2Consumable,
                         props: {
                             id: parseInt(properties[0])
                         }
                     });
-                } else if(type === "relic") {
+                } else if(type === "relic" && properties.length >= 1) {
                     components.push({
+                        raw: node,
                         type: Gw2Relic,
                         props: {
                             id: parseInt(properties[0])
                         }
                     });
-                } else if(type === "skill") {
+                } else if(type === "skill" && properties.length >= 1) {
                     components.push({
+                        raw: node,
                         type: Gw2Skill,
                         props: {
                             id: parseInt(properties[0])
                         }
                     });
-                } else if(type === "trait") {
+                } else if(type === "trait" && properties.length >= 1) {
                     components.push({
+                        raw: node,
                         type: Gw2Trait,
                         props: {
                             id: parseInt(properties[0])
                         }
                     });
-                } else if(type === "traitline") {
+                } else if(type === "traitline" && properties.length >= 2) {
                     components.push({
+                        raw: node,
                         type: Gw2TraitLine,
                         props: {
                             id: parseInt(properties[0]),
-                            selectedTraitIds: properties[1].split(",").map(value => parseInt(value))
+                            selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value))
                         }
                     });
-                } else if(type === "trinket") {
+                } else if(type === "trinket" && properties.length >= 2) {
                     components.push({
+                        raw: node,
                         type: Gw2Trinket,
                         props: {
                             infix: TrinketInfix[properties[0]],
                             type: TrinketType[properties[1]]
                         }
                     });
-                } else if(type === "component") {
+                } else if(type === "component" && properties.length >= 1) {
                     components.push({
+                        raw: node,
                         type: Gw2UpgradeComponent,
                         props: {
                             id: parseInt(properties[0])
                         }
                     });
-                } else if(type === "weapon") {
+                } else if(type === "weapon" && properties.length >= 3) {
                     components.push({
+                        raw: node,
                         type: Gw2Weapon,
                         props: {
                             infix: WeaponInfix[properties[0]],
                             type: WeaponType[properties[1]],
-                            sigilIds: properties[2].split(",").map(value => parseInt(value))
+                            sigilIds: properties[2].split(",").filter(value => value !== "").map(value => parseInt(value))
                         }
                     });
                 } else {
                     // This should never happen, but just in case we'll show an error so we know we should fix it.
                     components.push({
                         type: "span",
-                        content: part,
+                        content: node,
                         props: {
                             class: "d-inline-flex text-error"
                         }

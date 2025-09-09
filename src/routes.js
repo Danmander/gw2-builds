@@ -1,6 +1,7 @@
 import HomePage from './pages/HomePage.vue';
 import HealAlacrityTempestPage from './pages/builds/HealAlacrityTempestPage.vue';
 import TestPage from './pages/TestPage.vue';
+import EditorTestPage from './pages/EditorTestPage.vue';
 
 const routes = [
     {
@@ -14,7 +15,16 @@ const routes = [
     },
     {
         path: '/test',
-        component: TestPage
+        children: [
+            {
+                path: 'editor',
+                component: EditorTestPage
+            },
+            {
+                path: ':pathMatch(.*)*',
+                component: TestPage
+            }
+        ]
     },
     {
         path: '/:pathMatch(.*)*',
