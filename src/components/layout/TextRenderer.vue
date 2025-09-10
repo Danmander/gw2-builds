@@ -1,9 +1,8 @@
 <template>
     <div class="text-renderer d-flex-inline">
-        <span v-html="'<gw2-skill :id=\'15718\'/>'" />
         <component
-            v-for="(componentGroup) in components"
-            :key="componentGroup.key"
+            v-for="(componentGroup, index) in components"
+            :key="index"
             :is="componentGroup.type"
             class="line"
         >
@@ -164,13 +163,13 @@ export default {
                                 }
                             }
                         });
-                    } else if(type === "traitline" && properties.length >= 2) {
+                    } else if(type === "traitline" && properties.length >= 1) {
                         components.push({
                             key: getKey(node),
                             type: Gw2TraitLine,
                             props: {
                                 id: parseInt(properties[0]),
-                                selectedTraitIds: properties[1].split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                selectedTraitIds: (properties[1] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
                                 gw2IconProps: {
                                     class: "vertical-align-middle"
                                 }
@@ -226,8 +225,7 @@ export default {
                 }
 
                 componentGroups.push({
-                    key: getKey(line === "" ? "div" : "p"),
-                    type: line === "" ? "div" : "p",
+                    type: "div",
                     components: components
                 });
             }
@@ -240,7 +238,7 @@ export default {
 
 <style scoped>
 .line {
-    min-height: 21px;
+    min-height: 24px;
 }
 
 .vertical-align-middle,
