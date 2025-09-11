@@ -31,6 +31,7 @@ import Gw2Relic from '../Gw2Relic.vue';
 import Gw2Skill from '../Gw2Skill.vue';
 import Gw2Trait from '../Gw2Trait.vue';
 import Gw2TraitLine from '../Gw2TraitLine.vue';
+import Gw2Specialization from '../Gw2Specialization.vue';
 import Gw2Trinket from '../Gw2Trinket.vue';
 import Gw2UpgradeComponent from '../Gw2UpgradeComponent.vue';
 import Gw2Weapon from '../Gw2Weapon.vue';
@@ -205,13 +206,24 @@ export default {
                                     }
                                 }
                             });
-                        } else if(type === "traitline" && properties.length >= 1) {
+                        } else if(type === "traitline" && properties.length >= 2) {
                             componentGroup.components.push({
                                 key: getKey(node),
                                 type: Gw2TraitLine,
                                 props: {
                                     id: parseInt(properties[0]),
                                     selectedTraitIds: (properties[1] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                    gw2IconProps: {
+                                        class: "vertical-align-middle"
+                                    }
+                                }
+                            });
+                        } else if(type === "traitline" && properties.length >= 1) {
+                            componentGroup.components.push({
+                                key: getKey(node),
+                                type: Gw2Specialization,
+                                props: {
+                                    id: parseInt(properties[0]),
                                     gw2IconProps: {
                                         class: "vertical-align-middle"
                                     }
