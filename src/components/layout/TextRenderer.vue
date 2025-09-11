@@ -3,7 +3,7 @@
         <component
             v-for="(componentGroup, index) in components"
             :key="index"
-            :is="componentGroup.type"
+            :is="componentGroup.wrapperType"
             class="line"
         >
             <component
@@ -61,8 +61,30 @@ export default {
 
             const lines = this.text.trim().split("\n");
             for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-                const line = lines[lineIndex];
-                const components = [];
+                let line = lines[lineIndex];
+
+                const componentGroup = {
+                    wrapperType: "div",
+                    components: []
+                };
+
+                // Figure out which wrapper element the current line needs (these are inspired by markdown)
+                if(line.startsWith("# ")) {
+                    line = line.replace("# ", "");
+                    componentGroup.wrapperType = "h1";
+                } else if(line.startsWith("## ")) {
+                    line = line.replace("## ", "");
+                    componentGroup.wrapperType = "h2";
+                } else if(line.startsWith("### ")) {
+                    line = line.replace("### ", "");
+                    componentGroup.wrapperType = "h3";
+                } else if(line.startsWith("> ")) {
+                    line = line.replace("> ", "");
+                    componentGroup.wrapperType = "blockquote";
+                } else if(line.startsWith("- ")) {
+                    line = line.replace("- ", "");
+                    componentGroup.wrapperType = "li";
+                }
             
                 // We have to use non-capturing sub groups as otherwise the values in these groups would be removed when the split function is executed.
                 const nodes = line.split(/((?:->)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
@@ -74,7 +96,7 @@ export default {
 
                     // We wanted custom markdown arrows so that's why we create an arrow icon here
                     if(node === "->") {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: VIcon,
                             props:{
@@ -90,7 +112,7 @@ export default {
 
                     // If nothing matches (a.k.a. no type and properties are found) it's just plain text
                     if(matches === null) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: "span",
                             content: node,
@@ -106,7 +128,7 @@ export default {
                     const properties = matches[2].split(":");
 
                     if(type === "armor" && properties.length >= 3) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Armor,
                             props: {
@@ -120,7 +142,7 @@ export default {
                             }
                         });
                     } else if(type === "consumable" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Consumable,
                             props: {
@@ -131,7 +153,7 @@ export default {
                             }
                         });
                     } else if(type === "relic" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Relic,
                             props: {
@@ -142,7 +164,7 @@ export default {
                             }
                         });
                     } else if(type === "skill" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Skill,
                             props: {
@@ -153,7 +175,7 @@ export default {
                             }
                         });
                     } else if(type === "trait" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Trait,
                             props: {
@@ -164,7 +186,7 @@ export default {
                             }
                         });
                     } else if(type === "traitline" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2TraitLine,
                             props: {
@@ -176,7 +198,7 @@ export default {
                             }
                         });
                     } else if(type === "trinket" && properties.length >= 2) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Trinket,
                             props: {
@@ -188,7 +210,7 @@ export default {
                             }
                         });
                     } else if(type === "component" && properties.length >= 1) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2UpgradeComponent,
                             props: {
@@ -199,7 +221,7 @@ export default {
                             }
                         });
                     } else if(type === "weapon" && properties.length >= 2) {
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: Gw2Weapon,
                             props: {
@@ -213,7 +235,7 @@ export default {
                         });
                     } else {
                         // This should never happen, but just in case we'll show an error so we know we should fix it.
-                        components.push({
+                        componentGroup.components.push({
                             key: getKey(node),
                             type: "span",
                             content: node,
@@ -223,11 +245,7 @@ export default {
                         });
                     }
                 }
-
-                componentGroups.push({
-                    type: "div",
-                    components: components
-                });
+                componentGroups.push(componentGroup);
             }
 
             return componentGroups;
@@ -244,5 +262,14 @@ export default {
 .vertical-align-middle,
 .text-renderer:deep(.vertical-align-middle) {
     vertical-align: middle;
+}
+
+/* Styles which can be rendered by the markdown-esque renderer */
+blockquote {
+    border-left: 2px solid currentColor;
+    padding-left: 8px;
+}
+li {
+    list-style-position: inside;
 }
 </style>
