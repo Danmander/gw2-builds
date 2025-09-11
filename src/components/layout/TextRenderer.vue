@@ -230,6 +230,7 @@ export default {
                                 }
                             });
                         }
+                        continue;
                     }
 
                     // In case it's not a special element it's likely plain text.
@@ -259,7 +260,6 @@ export default {
                         }
                     });
                     continue;
-                    
                 }
                 componentGroups.push(componentGroup);
             }
