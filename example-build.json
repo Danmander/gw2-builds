@@ -1,0 +1,82 @@
+{
+    "title": "Heal Alacrity Tempest",
+    "armor": {
+        "weightClass": "Light",
+        "runeId": 24842,
+        "infixes": [
+            "Harrier",
+            "Harrier",
+            "Harrier",
+            "Harrier",
+            "Harrier",
+            "Harrier"
+        ]
+    },
+    "trinkets": [
+        "Giver",
+        "Giver",
+        "Giver",
+        "Giver",
+        "Giver",
+        "Harrier"
+    ],
+    "weapons": [
+        {
+            "type": "Dagger",
+            "infix": "Harrier",
+            "sigilIds": [
+                74326
+            ]
+        },
+        {
+            "type": "Warhorn",
+            "infix": "Harrier",
+            "sigilIds": [
+                24639
+            ]
+        }
+    ],
+    "relicId": 24842,
+    "foodId": 91690,
+    "utilityId": 67528,
+    "utilitySkillIds": [
+        29535,
+        null,
+        null,
+        null,
+        5666
+    ],
+    "traitLines": [
+        {
+            "id": 26,
+            "traitIds": [
+                289,
+                281,
+                1508
+            ]
+        },
+        {
+            "id": 17,
+            "traitIds": [
+                348,
+                358,
+                361
+            ]
+        },
+        {
+            "id": 48,
+            "traitIds": [
+                1886,
+                2015,
+                1986
+            ]
+        }
+    ],
+
+    "skillNotes": null,
+    "traitNotes": null,
+    "rotationNotes": null,
+    "youtubeVideoCodes": [
+        "KtBdKgRBTf8"
+    ]
+}
