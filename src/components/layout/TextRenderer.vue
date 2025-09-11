@@ -87,7 +87,12 @@ export default {
                 }
             
                 // We have to use non-capturing sub groups as otherwise the values in these groups would be removed when the split function is executed.
-                const nodes = line.split(/((?:\*?\*?\*[^*]*\*?\*?\*)|(?:->)|\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+])/gi);
+                // \*[^*]+\* is for italic
+                // \*\*[^*]+\*\* is for bold
+                // \*\*\*[^*]+\*\*\* is for bold and italic
+                // -> is for a custom rendered arrow icon
+                // \[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+] is for a component
+                const nodes = line.split(/((?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+]))/gi);
                 for (let index = 0; index < nodes.length; index++) {
                     const node = nodes[index];
 
@@ -108,10 +113,10 @@ export default {
                     }
 
                     // Handle components in the text
-                    const componentMatches = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
-                    if(componentMatches !== null) {
-                        const type = componentMatches[1].toLowerCase();
-                        const properties = componentMatches[2].split(":");
+                    const componentMatch = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
+                    if(componentMatch !== null) {
+                        const type = componentMatch[1].toLowerCase();
+                        const properties = componentMatch[2].split(":");
 
                         if(type === "armor" && properties.length >= 3) {
                             componentGroup.components.push({
