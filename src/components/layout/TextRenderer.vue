@@ -1,9 +1,10 @@
 <template>
     <div class="text-renderer d-flex-inline">
         <component
-            v-for="(componentGroup, index) in components"
+            v-for="(componentGroup, index) in componentGroups"
             :key="index"
             :is="componentGroup.wrapperType"
+            v-bind="componentGroup.props"
             class="line"
         >
             <component
@@ -44,7 +45,7 @@ export default {
         }
     },
     computed: {
-        components() {
+        componentGroups() {
             // We need a unique key for each component which allows it to re-render when it changes, but not re-render when it changes position.
             // So we can't use the index of the component because that would change with the position.
             // We also can't use the signature of the component as that would allow multiple components with the same key which causes render duplication issues.
@@ -65,6 +66,7 @@ export default {
 
                 const componentGroup = {
                     wrapperType: "div",
+                    props: {},
                     components: []
                 };
 
@@ -72,12 +74,21 @@ export default {
                 if(line.startsWith("# ")) {
                     line = line.replace("# ", "");
                     componentGroup.wrapperType = "h1";
+
+                    // We want to give headers an id so that links can link directly to these headers
+                    componentGroup.props.id = line.toLowerCase().replaceAll(" ", "-");
                 } else if(line.startsWith("## ")) {
                     line = line.replace("## ", "");
                     componentGroup.wrapperType = "h2";
+
+                    // We want to give headers an id so that links can link directly to these headers
+                    componentGroup.props.id = line.toLowerCase().replaceAll(" ", "-");
                 } else if(line.startsWith("### ")) {
                     line = line.replace("### ", "");
                     componentGroup.wrapperType = "h3";
+
+                    // We want to give headers an id so that links can link directly to these headers
+                    componentGroup.props.id = line.toLowerCase().replaceAll(" ", "-");
                 } else if(line.startsWith("> ")) {
                     line = line.replace("> ", "");
                     componentGroup.wrapperType = "blockquote";
@@ -87,12 +98,13 @@ export default {
                 }
             
                 // We have to use non-capturing sub groups as otherwise the values in these groups would be removed when the split function is executed.
+                // \([^()[\]]+\)\[[^()[\]]*\] is a markdown link
                 // \*[^*]+\* is for italic
                 // \*\*[^*]+\*\* is for bold
                 // \*\*\*[^*]+\*\*\* is for bold and italic
                 // -> is for a custom rendered arrow icon
                 // \[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+] is for a component
-                const nodes = line.split(/((?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+]))/gi);
+                const nodes = line.split(/((?:\([^()[\]]+\)\[[^()[\]]*\])|(?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+]))/gi);
                 for (let index = 0; index < nodes.length; index++) {
                     const node = nodes[index];
 
@@ -112,8 +124,25 @@ export default {
                         continue;
                     }
 
+                    // Handle markdown links
+                    const linkMatch = node.match(/^\(([^()[\]]+)\)\[([^()[\]]*)\]$/i);
+                    if(linkMatch !== null) {
+                        componentGroup.components.push({
+                            key: getKey(node),
+                            type: "a",
+                            content: linkMatch[1],
+                            props: {
+                                href: linkMatch[2],
+                                // We want links to headers to not open a new page as this would interupt the user flow
+                                target: linkMatch[2].startsWith("#") ? "_self" :"_blank",
+                                rel: "noopener noreferrer"
+                            }
+                        })
+                        continue;
+                    }
+
                     // Handle components in the text
-                    const componentMatch = node.match(/\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]/i);
+                    const componentMatch = node.match(/^\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]$/i);
                     if(componentMatch !== null) {
                         const type = componentMatch[1].toLowerCase();
                         const properties = componentMatch[2].split(":");
@@ -238,12 +267,13 @@ export default {
                         continue;
                     }
 
+
                     // In case it's not a special element it's likely plain text.
                     // We still have some markdown for this type of text that we need to handle like bold and italic.
                     const stylings = [
-                        { regex: /\*\*\*([^*]+)\*\*\*/, classes: "bold italic" },
-                        { regex: /\*\*([^*]+)\*\*/, classes: "bold" },
-                        { regex: /\*([^*]+)\*/, classes: "italic" },
+                        { regex: /^\*\*\*([^*]+)\*\*\*$/i, classes: "bold italic" },
+                        { regex: /^\*\*([^*]+)\*\*$/i, classes: "bold" },
+                        { regex: /^\*([^*]+)\*$/i, classes: "italic" },
                     ];
                     let text = node;
                     let textClass = "";
