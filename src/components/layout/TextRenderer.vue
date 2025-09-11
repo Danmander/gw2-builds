@@ -207,7 +207,7 @@ export default {
                                 }
                             });
                         } else if(type === "traitline" && properties.length >= 1) {
-                            const displayType = (properties[2] ?? "label").toLowerCase();
+                            const displayType = (properties[2] ?? "").toLowerCase();
 
                             if(displayType === "full") {
                                 componentGroup.components.push({
