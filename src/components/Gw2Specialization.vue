@@ -6,7 +6,7 @@
                 @click="searchSkillOnWiki()"
                 @contextmenu.prevent
                 :show-label="!tile"
-                :label="data?.name"
+                :label="label"
                 :icon="data?.icon"
                 :size="tile ? 56 : 24"
                 v-bind="{ ...props, ...gw2IconProps }"
@@ -15,7 +15,7 @@
 
         <template #default>
             <gw2-tooltip-container
-                :title="data?.name"
+                :title="`${label} Trait Line`"
             />
         </template>
     </gw2-tooltip>
@@ -62,6 +62,13 @@ export default {
         }).catch((error) => {
             console.error(error);
         });
+    },
+    computed: {
+        label() {
+            if(this.data?.name === undefined) return null;
+
+            return `${this.data.name} Trait Line`;
+        }
     },
     methods: {
         searchSkillOnWiki() {

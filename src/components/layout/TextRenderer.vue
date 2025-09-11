@@ -206,29 +206,34 @@ export default {
                                     }
                                 }
                             });
-                        } else if(type === "traitline" && properties.length >= 2) {
-                            componentGroup.components.push({
-                                key: getKey(node),
-                                type: Gw2TraitLine,
-                                props: {
-                                    id: parseInt(properties[0]),
-                                    selectedTraitIds: (properties[1] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
-                                    gw2IconProps: {
-                                        class: "vertical-align-middle"
-                                    }
-                                }
-                            });
                         } else if(type === "traitline" && properties.length >= 1) {
-                            componentGroup.components.push({
-                                key: getKey(node),
-                                type: Gw2Specialization,
-                                props: {
-                                    id: parseInt(properties[0]),
-                                    gw2IconProps: {
-                                        class: "vertical-align-middle"
+                            const displayType = (properties[2] ?? "label").toLowerCase();
+
+                            if(displayType === "full") {
+                                componentGroup.components.push({
+                                    key: getKey(node),
+                                    type: Gw2TraitLine,
+                                    props: {
+                                        id: parseInt(properties[0]),
+                                        selectedTraitIds: (properties[1] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                        gw2IconProps: {
+                                            class: "vertical-align-middle"
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                componentGroup.components.push({
+                                    key: getKey(node),
+                                    type: Gw2Specialization,
+                                    props: {
+                                        id: parseInt(properties[0]),
+                                        // tile: displayType === "tile",
+                                        gw2IconProps: {
+                                            class: "vertical-align-middle"
+                                        }
+                                    }
+                                });
+                            }
                         } else if(type === "trinket" && properties.length >= 2) {
                             componentGroup.components.push({
                                 key: getKey(node),
