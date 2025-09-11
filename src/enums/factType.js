@@ -12,8 +12,9 @@ const FactType = Object.freeze({
     Distance: "Distance",
     ComboField: "ComboField",
     ComboFinisher: "ComboFinisher",
-    AttributeAdjust: "AttributeAdjust", // What does this even mean?
+    AttributeAdjust: "AttributeAdjust",
     StunBreak: "StunBreak",
     Percent: "Percent",
+    BuffConversion: "BuffConversion"
 });
 export default FactType;

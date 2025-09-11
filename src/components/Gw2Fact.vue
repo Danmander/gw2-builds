@@ -65,8 +65,7 @@
                 {{ fact.text }}: {{ fact.finisher_type }}
             </span>
             <span v-else-if="fact.type === FactType.AttributeAdjust">
-                {{ fact.target }}: {{ fact.value }}
-            <!-- TODO: transform into readable attribute names -->
+                {{ transformAttribute(fact.target) }}: {{ fact.value }}
             </span>
             <span v-else-if="fact.type === FactType.StunBreak">
                 Breaks Stuns
@@ -74,17 +73,21 @@
             <span v-else-if="fact.type === FactType.Percent">
                 {{ fact.text }}: {{ fact.percent }}%
             </span>
+            <span v-else-if="fact.type === FactType.BuffConversion">
+                Gain {{ transformAttribute(fact.target) }} based on a percentage of {{ transformAttribute(fact.source) }}: {{ fact.percent }}%
+            </span>
             <span
                 v-else
                 class="text-error"
             >
-                Unsupported fact type: {{ fact.type }}
+                Unsupported fact type: {{ fact.type }} {{ fact }}
             </span>
         </span>
     </div>
 </template>
 
 <script>
+import { transformAttribute } from '../services/transformerService.js';
 import FactType from '../enums/factType.js';
 
 export default {
@@ -96,7 +99,8 @@ export default {
     },
     data() {
         return {
-            FactType
+            FactType,
+            transformAttribute
         }
     }
 }
