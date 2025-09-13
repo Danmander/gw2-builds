@@ -2,6 +2,7 @@ import HomePage from './pages/HomePage.vue';
 import HealAlacrityTempestPage from './pages/builds/HealAlacrityTempestPage.vue';
 import TestPage from './pages/TestPage.vue';
 import EditorTestPage from './pages/EditorTestPage.vue';
+import BuildPage from './pages/builds/BuildPage.vue';
 
 const routes = [
     {
@@ -11,6 +12,10 @@ const routes = [
                 path: 'heal-alacrity-tempest',
                 component: HealAlacrityTempestPage
             },
+            {
+                path: ':pathMatch(.*)*',
+                component: BuildPage
+            }
         ]
     },
     {

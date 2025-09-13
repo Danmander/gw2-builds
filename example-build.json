@@ -1,42 +1,44 @@
 {
-    "title": "Heal Alacrity Tempest",
+    "title": "[icon:Tempest] Heal Alacrity Tempest",
     "armor": {
         "weightClass": "Light",
         "runeId": 24842,
         "infixes": [
-            "Harrier",
-            "Harrier",
-            "Harrier",
-            "Harrier",
-            "Harrier",
-            "Harrier"
+            1377,
+            1377,
+            1377,
+            1377,
+            1377,
+            1377
         ]
     },
-    "trinkets": [
-        "Giver",
-        "Giver",
-        "Giver",
-        "Giver",
-        "Giver",
-        "Harrier"
-    ],
+    "trinkets": {
+        "infixes": [
+            1430,
+            1430,
+            1430,
+            1430,
+            1430,
+            1367
+        ]
+    },
     "weapons": [
         {
             "type": "Dagger",
-            "infix": "Harrier",
+            "infix": 1377,
             "sigilIds": [
                 74326
             ]
         },
         {
             "type": "Warhorn",
-            "infix": "Harrier",
+            "infix": 1377,
             "sigilIds": [
                 24639
             ]
         }
     ],
-    "relicId": 24842,
+    "relicId": 101268,
     "foodId": 91690,
     "utilityId": 67528,
     "utilitySkillIds": [
@@ -72,11 +74,11 @@
             ]
         }
     ],
-
-    "skillNotes": null,
-    "traitNotes": null,
-    "rotationNotes": null,
+    "skillNotes": "Here are the most common utility skills you'll be using. For a full list of viable utilty skills check the [Gameplay Guide](https://snowcrows.com/guides/classes/heal-alacrity-tempest-gameplay-guide#slot-skills).\n- [skill:30432] for [icon:Aegis].\n- [skill:30047] for [icon:Stability].\n- [skill:30662] to provide 25 [icon:Might] in a 600 [icon:Radius] when combined with [skill:29548] and [skill:29706].\n- [skill:5570] for a 1200 [icon:Range] burst [icon:Heal] and [icon:Condition Cleanse].\n- [skill:5573] for ranged [icon:Revive:Revives].\n- [skill:5624], [skill:5567] or [skill:5638] for additional [icon:Defiance:Breakbar] damage.",
+    "traitNotes": "[traitline:26] can be swapped out for [traitline:37], [traitline:31] or [traitline:41]. For an overview of their advantages and how to use them, check the [Gameplay Guide](https://snowcrows.com/guides/classes/heal-alacrity-tempest-gameplay-guide#trait-lines).",
+    "rotationNotes": "Rotation notes",
     "youtubeVideoCodes": [
-        "KtBdKgRBTf8"
+        "KtBdKgRBTf8",
+        "e-XR0hS3OXM"
     ]
 }

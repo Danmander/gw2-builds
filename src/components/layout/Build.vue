@@ -191,7 +191,6 @@
             cols="12"
             order="3"
             md="6"
-            v-show="$slots.rotation"
         >
             <div class="position-sticky">
                 <slot name="rotation" />

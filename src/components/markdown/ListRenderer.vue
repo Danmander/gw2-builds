@@ -1,5 +1,8 @@
 <template>
-    <component :is="listRootElementType">
+    <component
+        :is="listRootElementType"
+        class="pl-6"
+    >
         <li
             v-for="(item, index) in items"
             :key="index"
@@ -35,7 +38,6 @@ export default {
                 return item !== "";
             }).map((item)=> {
                 const match = item.match(/^(?:-|[0-9]+\.) (.*)?$/);
-                console.log(item, match);
                 return match[1] === undefined ? "" : match[1];
             });
         },
@@ -48,8 +50,6 @@ export default {
 
 <style scoped>
 li {
-    list-style-position: inside;
-
     /* We want to make sure an empty list item doesn't shift the item style/icon at the front */
     min-height: 25px;
 }
@@ -59,7 +59,7 @@ li::marker {
 }
 
 .item {
-    display: inline-block;
+    display: inline;
     vertical-align: text-bottom;
 
     /* We want to make sure an empty list item doesn't shift the item style/icon at the front */
