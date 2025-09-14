@@ -62,6 +62,12 @@
 
     <hr>
 
+    <gw2-custom-icon id="might" label="Might Source" />
+    <gw2-custom-icon id="might" />
+    <gw2-custom-icon id="might" tile />
+
+    <hr>
+
     <gw2-trait-line class="mt-2" :id="37" :selected-trait-ids="[1487, 265, 238]" />
     <gw2-trait-line class="mt-2" :id="37" :selected-trait-ids="[1487, 265, 238]" />
     <gw2-trait-line class="mt-2" :id="17" :selected-trait-ids="[360, 358, 2028]" />
@@ -78,6 +84,7 @@ import Gw2UpgradeComponent from '../components/Gw2UpgradeComponent.vue';
 import Gw2Relic from '../components/Gw2Relic.vue';
 import Gw2Specialization from '../components/Gw2Specialization.vue';
 import Gw2TraitLine from '../components/Gw2TraitLine.vue';
+import Gw2CustomIcon from '../components/Gw2CustomIcon.vue';
 import ArmorType from '../enums/armorType';
 import WeaponType from '../enums/weaponType';
 import { ArmorInfix } from '../enums/infixUpgrade';
@@ -92,7 +99,8 @@ export default {
         Gw2Weapon,
         Gw2UpgradeComponent,
         Gw2Relic,
-        Gw2Specialization
+        Gw2Specialization,
+        Gw2CustomIcon
     },
     data() {
         return {

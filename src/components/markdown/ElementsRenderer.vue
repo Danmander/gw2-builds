@@ -25,6 +25,7 @@ import TrinketType from '../../enums/trinketType.js';
 import Gw2UpgradeComponent from '../Gw2UpgradeComponent.vue';
 import Gw2Weapon from '../Gw2Weapon.vue';
 import WeaponType from '../../enums/weaponType.js';
+import Gw2CustomIcon from '../Gw2CustomIcon.vue';
 import { VIcon } from 'vuetify/components';
 
 export default {
@@ -58,7 +59,7 @@ export default {
             // \*\*\*[^*]+\*\*\* is for bold and italic
             // -> is for a custom rendered arrow icon
             // \[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+] is for a component
-            const nodes = this.markdown.split(/((?:\[[^()[\]]+\]\([^()[\]]*\))|(?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+]))/gi);
+            const nodes = this.markdown.split(/((?:\[[^()[\]]+\]\([^()[\]]*\))|(?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon|icon):?[^[\]]+]))/gi);
             for (let index = 0; index < nodes.length; index++) {
                 const node = nodes[index];
 
@@ -97,7 +98,7 @@ export default {
                 }
 
                 // Handle components in the text
-                const componentMatch = node.match(/^\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?([^[\]]+)]$/i);
+                const componentMatch = node.match(/^\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon|icon):?([^[\]]+)]$/i);
                 if(componentMatch !== null) {
                     const type = componentMatch[1].toLowerCase();
                     const properties = componentMatch[2].split(":");
@@ -219,6 +220,18 @@ export default {
                                 infix: WeaponInfix[properties[0]],
                                 type: WeaponType[properties[1]],
                                 sigilIds: (properties[2] ?? "").split(",").filter(value => value !== "").map(value => parseInt(value)),
+                                gw2IconProps: {
+                                    class: "vertical-align-middle"
+                                }
+                            }
+                        });
+                    } else if(type === "icon" && properties.length >= 1) {
+                        components.push({
+                            key: getKey(node),
+                            type: Gw2CustomIcon,
+                            props: {
+                                id: properties[0],
+                                label: properties[1] ?? null,
                                 gw2IconProps: {
                                     class: "vertical-align-middle"
                                 }
