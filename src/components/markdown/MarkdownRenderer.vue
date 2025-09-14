@@ -50,7 +50,7 @@ export default {
             // ((?:- [^\n-]+\n)+) is a unordered list
             // ((?:[0-9]+\. [^\n-]+\n)+) is an ordered list
             // (?:([^\n]*)\n) is any old text
-            return [...(this.markdown.trim() + "\n").matchAll(/((?:\|(?:[^|]+\|)*\n)+)|((?:- [^\n-]*\n)+)|((?:[0-9]+\. [^\n-]*\n)+)|(?:([^\n]*)\n)/gi)];
+            return [...((this.markdown ? this.markdown : "").trim() + "\n").matchAll(/((?:\|(?:[^|]+\|)*\n)+)|((?:- [^\n-]*\n)+)|((?:[0-9]+\. [^\n-]*\n)+)|(?:([^\n]*)\n)/gi)];
         },
     }
 }
