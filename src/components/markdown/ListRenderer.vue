@@ -4,9 +4,11 @@
             v-for="(item, index) in items"
             :key="index"
         >
-            <span class="item">
-                <elements-renderer :markdown="item" />
+            <span class="prefix">
+                <template v-if="type === 'ordered'">{{ index + 1 }}.</template>
+                <template v-else><v-icon>mdi-circle-medium</v-icon></template>
             </span>
+            <elements-renderer :markdown="item" />
         </li>
     </component>
 </template>
@@ -42,27 +44,31 @@ export default {
         listRootElementType() {
             return this.type === "ordered" ? "ol" : "ul";
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
+ul, ol {
+    list-style: none;
+}
+
 li {
-    list-style-position: inside;
+    padding-left: 24px;
 
     /* We want to make sure an empty list item doesn't shift the item style/icon at the front */
     min-height: 25px;
 }
 
-li::marker {
-    vertical-align: middle;
+.prefix {
+    position: absolute;
+    left: 0px;
+    text-align: right;
+    width: 20px;
 }
 
-.item {
-    display: inline-block;
-    vertical-align: text-bottom;
-
-    /* We want to make sure an empty list item doesn't shift the item style/icon at the front */
-    min-height: 25px;
+ol .prefix {
+    /* The prefixes are 21px high so we need to offset them by 2px to align them properly */
+    top: 2px;
 }
 </style>
