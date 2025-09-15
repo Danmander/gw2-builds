@@ -37,7 +37,6 @@ export default {
                 return item !== "";
             }).map((item)=> {
                 const match = item.match(/^(?:-|[0-9]+\.) (.*)?$/);
-                console.log(item, match);
                 return match[1] === undefined ? "" : match[1];
             });
         },
