@@ -31,6 +31,7 @@ import RadiusIcon from '../assets/images/facts/radius.png';
 import RangeIcon from '../assets/images/facts/range.png';
 import ReviveIcon from '../assets/images/facts/revive.png';
 import DefianceIcon from '../assets/images/defiance.png'
+import WeaponSwapIcon from '../assets/images/weapon-swap.png';
 
 export default {
     components: {
@@ -84,6 +85,7 @@ export default {
             else if(key === "range") return { iconSrc: RangeIcon, defaultLabel: "Range" }
             else if(key === "revive") return { iconSrc: ReviveIcon, defaultLabel: "Revive" }
             else if(key === "defiance") return { iconSrc: DefianceIcon, defaultLabel: "Defiance" }
+            else if(key === "weaponswap") return { iconSrc: WeaponSwapIcon, defaultLabel: "Weapon swap" }
             return null
         }
     }

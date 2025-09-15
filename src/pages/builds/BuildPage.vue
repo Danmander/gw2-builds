@@ -8,7 +8,7 @@
             :rune-id="build.armor.runeId"
             :trinket-infixes="build.trinkets.infixes"
             :relic-id="build.relicId"
-            :weapons="build.weapons"
+            :weapon-sets="build.weaponSets"
             :utility-skill-ids="build.utilitySkillIds"
             :trait-lines="build.traitLines"
             :food-id="build.foodId"
