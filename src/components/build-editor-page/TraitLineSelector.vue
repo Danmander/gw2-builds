@@ -58,14 +58,19 @@ export default {
         }
     },
     mounted() {
-        this.dataStore.getAllTraitLines().then(response => this.traitLineOptions = [{ id: null, name: "" }, ...response]);
+        this.dataStore.getAllTraitLines().then(response => {
+            this.traitLineOptions = [{ id: null, name: "" }, ...response];
+            this.retrieveTraitOptions();
+        });
     },
     methods: {
         retrieveTraitOptions() {
-            if(this.internalTraitLineId === null) return [];
+            if(this.internalTraitLineId === null) return ;
+
+            const selectedTraitLine = this.traitLineOptions.find(traitLine => traitLine.id === this.internalTraitLineId);
+            if(selectedTraitLine === undefined) return;
 
             this.traitOptions = [];
-            const selectedTraitLine = this.traitLineOptions.find(traitLine => traitLine.id === this.internalTraitLineId);
             Promise.all(selectedTraitLine.major_traits.map((traitId) => this.dataStore.getTrait(traitId))).then(response => this.traitOptions = response);
         }
     },
