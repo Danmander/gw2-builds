@@ -80,7 +80,7 @@ export default {
     methods: {
         searchSkillOnWiki() {
             if(this.data === null) return;
-            window.open(`http://wiki.guildwars2.com/wiki/Special:Search/${this.data.name}`);
+            window.open(`https://wiki.guildwars2.com/wiki/Special:Search/${this.data.name}`);
         }
     }
 }
