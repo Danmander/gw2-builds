@@ -21,9 +21,13 @@
             TrinketInfix.Harrier,
         ]"
         :relic-id="101268"
-        :weapons="[
-            { type: WeaponType.Dagger, infix: WeaponInfix.Harrier, sigilIds: [74326] },
-            { type: WeaponType.Warhorn, infix: WeaponInfix.Harrier, sigilIds: [24639] }
+        :weapon-sets="[
+            {
+                weapons: [
+                    { type: WeaponType.Dagger, infix: WeaponInfix.Harrier, sigilIds: [74326] },
+                    { type: WeaponType.Warhorn, infix: WeaponInfix.Harrier, sigilIds: [24639] }
+                ]
+            }
         ]"
         :utility-skill-ids="[
             29535,
