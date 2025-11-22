@@ -87,6 +87,7 @@ export default {
                         type: "a",
                         content: linkMatch[1],
                         props: {
+                            class: "vertical-align-middle",
                             href: linkMatch[2],
                             // We want links to headers to not open a new page as this would interupt the user flow
                             target: linkMatch[2].startsWith("#") ? "_self" :"_blank",

@@ -24,15 +24,16 @@ export const useDataStore = defineStore('data', () => {
      * @param {{ id: Number, resolve: (value: any) => void, reject: (reason?: any) => void }[]} skillIdRequests 
      */
     function getResources(resourceType, requests) {
-        fetch(`https://api.guildwars2.com/v2/${resourceType}?ids=${requests.map(request => request.id).join(',')}`).then(async (response) => {
-            const data = await response.json();
-            requests.forEach(resourceRequest => {
-                const resourceData = data.find((item) => item.id === resourceRequest.id);
-                resourceRequest.resolve(resourceData);
+        fetch(`https://api.guildwars2.com/v2/${resourceType}?ids=${requests.map(request => request.id).join(',')}`)
+            .then(async (response) => {
+                const data = await response.json();
+                requests.forEach(resourceRequest => {
+                    const resourceData = data.find((item) => item.id === resourceRequest.id);
+                    resourceRequest.resolve(resourceData);
+                });
+            }).catch((error) => {
+                requests.forEach(skillRequest => skillRequest.reject(error));
             });
-        }).catch((error) => {
-            requests.forEach(skillRequest => skillRequest.reject(error));
-        });
     }
 
     function getSkill(skillId) {
@@ -121,7 +122,18 @@ export const useDataStore = defineStore('data', () => {
         });
     }
 
+    function getAllTraitLines() {
+        return new Promise((resolve, reject) => {
+            fetch("https://api.guildwars2.com/v2/specializations?ids=all")
+                .then(async (response) => {
+                    resolve(await response.json());
+                }).catch((error) => {
+                    reject(error);
+                });
+        });
+    }
+
     return {
-        getSkill, getTrait, getTraitLine, getItem, getItemStat // actions
+        getSkill, getTrait, getTraitLine, getItem, getItemStat, getAllTraitLines // actions
     }
 });

@@ -1,0 +1,106 @@
+{
+    "title": "[icon:Tempest] Heal Alacrity Tempest",
+    "armor": {
+        "weightClass": "Light",
+        "runeId": 24842,
+        "infixes": [
+            1377,
+            1377,
+            1377,
+            1377,
+            1377,
+            1377
+        ]
+    },
+    "trinkets": {
+        "infixes": [
+            1430,
+            1430,
+            1430,
+            1430,
+            1430,
+            1367
+        ]
+    },
+    "weaponSets": [
+        {
+            "weapons": [
+                {
+                    "type": "Dagger",
+                    "infix": 1377,
+                    "sigilIds": [
+                        74326
+                    ]
+                },
+                {
+                    "type": "Warhorn",
+                    "infix": 1377,
+                    "sigilIds": [
+                        24639
+                    ]
+                }
+            ]
+        },
+        {
+            "weapons": [
+                {
+                    "type": "Dagger",
+                    "infix": 1377,
+                    "sigilIds": [
+                        74326
+                    ]
+                },
+                {
+                    "type": "Warhorn",
+                    "infix": 1377,
+                    "sigilIds": [
+                        24639
+                    ]
+                }
+            ]
+        }
+    ],
+    "relicId": 101268,
+    "foodId": 91690,
+    "utilityId": 67528,
+    "utilitySkillIds": [
+        29535,
+        null,
+        null,
+        null,
+        5666
+    ],
+    "traitLines": [
+        {
+            "id": 26,
+            "traitIds": [
+                289,
+                281,
+                1508
+            ]
+        },
+        {
+            "id": 17,
+            "traitIds": [
+                348,
+                358,
+                361
+            ]
+        },
+        {
+            "id": 48,
+            "traitIds": [
+                1886,
+                2015,
+                1986
+            ]
+        }
+    ],
+    "skillNotes": "Here are the most common utility skills you'll be using. For a full list of viable utilty skills check the [Gameplay Guide](https://snowcrows.com/guides/classes/heal-alacrity-tempest-gameplay-guide#slot-skills).\n- [skill:30432] for [icon:Aegis].\n- [skill:30047] for [icon:Stability].\n- [skill:30662] to provide 25 [icon:Might] in a 600 [icon:Radius] when combined with [skill:29548] and [skill:29706].\n- [skill:5570] for a 1200 [icon:Range] burst [icon:Healing:Heal] and [icon:Condition Cleanse].\n- [skill:5573] for ranged [icon:Revive:Revives].\n- [skill:5624], [skill:5567] or [skill:5638] for additional [icon:Defiance:Breakbar] damage.",
+    "traitNotes": "[traitline:26] can be swapped out for [traitline:37], [traitline:31] or [traitline:41]. For an overview of their advantages and how to use them, check the [Gameplay Guide](https://snowcrows.com/guides/classes/heal-alacrity-tempest-gameplay-guide#trait-lines).",
+    "rotationNotes": "Rotation notes",
+    "youtubeVideoCodes": [
+        "KtBdKgRBTf8",
+        "e-XR0hS3OXM"
+    ]
+}

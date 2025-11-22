@@ -65,7 +65,7 @@
                 {{ fact.text }}: {{ fact.finisher_type }}
             </span>
             <span v-else-if="fact.type === FactType.AttributeAdjust">
-                {{ transformAttribute(fact.target) }}: {{ fact.value }}
+                {{ fact.text ?? transformAttribute(fact.target) }}: {{ fact.value }}
             </span>
             <span v-else-if="fact.type === FactType.StunBreak">
                 Breaks Stuns

@@ -41,6 +41,10 @@ export default {
     opacity: 0 !important;
 }
 
+.expansion-panel:deep(.v-expansion-panel-text__wrapper) {
+    padding-top: 0 !important;
+}
+
 .title {
     font-size: 1.175rem;
     min-height: 64px !important;

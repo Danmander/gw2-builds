@@ -1,33 +1,43 @@
-import HomePage from './pages/HomePage.vue';
-import HealAlacrityTempestPage from './pages/builds/HealAlacrityTempestPage.vue';
-import TestPage from './pages/TestPage.vue';
-import EditorTestPage from './pages/EditorTestPage.vue';
+import HomePage from "./pages/HomePage.vue";
+import HealAlacrityTempestPage from "./pages/builds/HealAlacrityTempestPage.vue";
+import TestPage from "./pages/TestPage.vue";
+import EditorTestPage from "./pages/EditorTestPage.vue";
+import BuildPage from "./pages/builds/BuildPage.vue";
+import BuildEditorPage from "./pages/builds/BuildEditorPage.vue";
 
 const routes = [
     {
-        path: '/builds',
+        path: "/build-editor",
+        component: BuildEditorPage
+    },
+    {
+        path: "/build",
         children: [
             {
-                path: 'heal-alacrity-tempest',
+                path: "heal-alacrity-tempest",
                 component: HealAlacrityTempestPage
             },
+            {
+                path: ":pathMatch(.*)*",
+                component: BuildPage
+            }
         ]
     },
     {
-        path: '/test',
+        path: "/test",
         children: [
             {
-                path: 'editor',
+                path: "editor",
                 component: EditorTestPage
             },
             {
-                path: ':pathMatch(.*)*',
+                path: ":pathMatch(.*)*",
                 component: TestPage
             }
         ]
     },
     {
-        path: '/:pathMatch(.*)*',
+        path: "/:pathMatch(.*)*",
         component: HomePage
     },
 ];

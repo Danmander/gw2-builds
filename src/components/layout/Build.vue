@@ -80,37 +80,49 @@
                 <!-- Weapons -->  
                 <div class="gear-header mb-2">
                     Weapons
-                </div>          
-                <div
-                    v-for="(weapon, index) in weapons"
-                    :key="index"
-                    class="d-flex"
-                    :class="{ 'mt-2': index !== 0 }"
+                </div>
+                <template
+                    v-for="(weaponSet, weaponSetIndex) in weaponSets"
+                    :key="weaponSetIndex"
                 >
-                    <gw2-weapon
-                        :type="weapon.type"
-                        :infix="weapon.infix"
-                        :sigil-ids="weapon.sigilIds ?? []"
-                        tile
+                    <gw2-custom-icon
+                        v-if="weaponSetIndex !== 0"
+                        :id="'weaponswap'"
+                        class="weapon-swap-icon my-2"
+                        :tile="true"
+                        :gw2-icon-props="{ size: 36 }"
                     />
-                    <div class="ml-2">
-                        <div class="flex-align-self-center">
-                            <span>
-                                {{ transformInfixUpgrade(weapon.infix) }}
-                            </span>
-                            <span class="text-faded ml-1">
-                                {{ weapon.type }}
-                            </span>
-                        </div>
-                        <div
-                            v-for="(sigilId, sigilIndex) in weapon.sigilIds ?? []"
-                            :key="sigilIndex"
-                            class="mt-1"
-                        >
-                            <gw2-upgrade-component :id="sigilId" />
+                    <div
+                        v-for="(weapon, index) in weaponSet.weapons"
+                        :key="index"
+                        class="d-flex"
+                        :class="{ 'mt-2': index !== 0 }"
+                    >
+                        <gw2-weapon
+                            :type="weapon.type"
+                            :infix="weapon.infix"
+                            :sigil-ids="weapon.sigilIds ?? []"
+                            tile
+                        />
+                        <div class="ml-2">
+                            <div class="flex-align-self-center">
+                                <span>
+                                    {{ transformInfixUpgrade(weapon.infix) }}
+                                </span>
+                                <span class="text-faded ml-1">
+                                    {{ weapon.type }}
+                                </span>
+                            </div>
+                            <div
+                                v-for="(sigilId, sigilIndex) in weapon.sigilIds ?? []"
+                                :key="sigilIndex"
+                                class="mt-1"
+                            >
+                                <gw2-upgrade-component :id="sigilId" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </template>
                 
                 <!-- Relic -->
                 <div class="gear-header mb-2 mt-2">
@@ -191,7 +203,6 @@
             cols="12"
             order="3"
             md="6"
-            v-show="$slots.rotation"
         >
             <div class="position-sticky">
                 <slot name="rotation" />
@@ -223,6 +234,7 @@ import ArmorType from '../../enums/armorType.js';
 import TrinketType from '../../enums/trinketType.js';
 import { transformInfixUpgrade } from '../../services/transformerService.js';
 import Container from './Container.vue';
+import Gw2CustomIcon from '../Gw2CustomIcon.vue';
 
 export default {
     components: {
@@ -234,16 +246,17 @@ export default {
         Gw2Consumable,
         Gw2Relic,
         Gw2Trinket,
-        Container
+        Container,
+        Gw2CustomIcon
     },
     props: {
         utilitySkillIds: {
             type: Array,
             default: () => []
         },
-        weapons: {
-            type: Array, // Each item should be in the form { type: string, infix: int, sigilIds: int[] }
-            default: () => []
+        weaponSets: {
+            type: Array, // Each item should be in the form { weapons: array } which each item in the weapon array being in the form { type: string, infix: int, sigilIds: int[] }
+            default: () => null
         },
         armorWeightClass: {
             type: String,
@@ -309,5 +322,9 @@ export default {
     /* color: rgb(var(--v-theme-faded)); */
     font-size: 1.075rem;
     border-bottom: solid 1px rgb(var(--v-theme-faded));
+}
+
+.weapon-swap-icon {
+    margin-left: 10px;
 }
 </style>
