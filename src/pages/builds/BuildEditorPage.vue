@@ -120,9 +120,35 @@
         </v-col>
 
         <!-- Video Links -->
-        <v-col cols="12">
+        <v-col
+            cols="12"
+            md="6"
+        >
             <h2>Video Links</h2>
-            TODO
+            <v-text-field
+                v-for="(_, index) in build.youtubeVideoCodes"
+                :key="index"
+                v-model="build.youtubeVideoCodes[index]"
+                hide-details
+                density="compact"
+            >
+                <template #append>
+                    <v-icon
+                        color="error"
+                        @click="removeYoutubeVideoCode(index)"
+                    >
+                        mdi-delete
+                    </v-icon>
+                </template>
+            </v-text-field>
+            <div class="mt-2 text-center">
+                <v-icon
+                    size="32"
+                    @click="addYoutubeVideoCode()"
+                >
+                    mdi-plus-circle
+                </v-icon>
+            </div>
         </v-col>
 
         <!-- Notes -->
@@ -283,6 +309,14 @@ export default {
         },
         buildLink() {
             return `${window.location.protocol}//${window.location.host}/build?build=${this.buildCode}`;
+        }
+    },
+    methods: {
+        addYoutubeVideoCode(){
+            this.build.youtubeVideoCodes.push(null);
+        },
+        removeYoutubeVideoCode(index) {
+            this.build.youtubeVideoCodes.splice(index, 1);
         }
     }
 }
