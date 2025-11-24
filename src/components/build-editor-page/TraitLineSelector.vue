@@ -53,8 +53,8 @@ export default {
             traitLineOptions: [],
             traitOptions: [],
 
-            internalTraitLineId: null,
-            internalTraitIds: [null, null, null]
+            internalTraitLineId: this.traitLineId,
+            internalTraitIds: this.traitIds
         }
     },
     mounted() {
@@ -65,7 +65,7 @@ export default {
     },
     methods: {
         retrieveTraitOptions() {
-            if(this.internalTraitLineId === null) return ;
+            if(this.internalTraitLineId === null) return;
 
             const selectedTraitLine = this.traitLineOptions.find(traitLine => traitLine.id === this.internalTraitLineId);
             if(selectedTraitLine === undefined) return;
@@ -76,8 +76,8 @@ export default {
     },
     watch: {
         traitLineId(newValue) {
-            this.retrieveTraitOptions();
             this.internalTraitLineId = newValue;
+            this.retrieveTraitOptions();
         },
         traitIds(newValue) {
             this.internalTraitIds = newValue;
