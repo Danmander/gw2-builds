@@ -18,7 +18,7 @@
             >
                 <v-select        
                     v-model="internalTraitIds[index]"
-                    :items="traitOptions.slice(index * 3, (index + 1) * 3)"
+                    :items="[{id: null, name: ''}, ...traitOptions.slice(index * 3, (index + 1) * 3)]"
                     item-title="name"
                     item-value="id"
                     hide-details
