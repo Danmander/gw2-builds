@@ -65,10 +65,32 @@ export default {
 table {
     width: 100%;
     line-height: 2;
+    border-spacing: 0;
+    border: 2px solid rgb(var(--v-theme-background));
 }
 
 thead {
     line-height: 2;
     font-size: 1.17rem; /* The same size as a h3 tag */
+}
+
+/* thead th:not(:first-child) {
+    border-left: 1px solid rgb(var(--v-theme-background));
+}
+
+thead th:not(:last-child) {
+    border-right: 1px solid rgb(var(--v-theme-background));
+} */
+
+tbody td:not(:first-child) {
+    border-left: 1px solid rgb(var(--v-theme-surface));
+}
+
+tbody td:not(:last-child) {
+    border-right: 1px solid rgb(var(--v-theme-surface));
+}
+
+tbody tr:not(:first-child) td {
+    border-top: 2px solid rgb(var(--v-theme-surface));
 }
 </style>
