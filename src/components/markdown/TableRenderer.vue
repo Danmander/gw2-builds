@@ -67,6 +67,7 @@ table {
     line-height: 2;
     border-spacing: 0;
     border: 2px solid rgb(var(--v-theme-background));
+    border-radius: 4px;
 }
 
 thead {
