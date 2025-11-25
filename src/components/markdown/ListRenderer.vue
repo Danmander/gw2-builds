@@ -3,6 +3,7 @@
         <li
             v-for="(item, index) in items"
             :key="index"
+            :class="{ 'mt-1': index !== 0 }"
         >
             <span class="prefix">
                 <template v-if="type === 'ordered'">{{ index + 1 }}.</template>

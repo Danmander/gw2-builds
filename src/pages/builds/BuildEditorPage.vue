@@ -14,6 +14,10 @@
     >
         A link to the build page, share this with your users so they can view the build.
     </a>
+    <div>
+        You might need to use a URL shortener like <a href="https://shorter.me/">shorter.me</a> as these links can become quite long.
+    </div>
+   
 
     <v-tabs
         class="mt-2"

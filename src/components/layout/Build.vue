@@ -87,7 +87,7 @@
                 >
                     <gw2-custom-icon
                         v-if="weaponSetIndex !== 0"
-                        :id="'weaponswap'"
+                        :id="'weapon swap'"
                         class="weapon-swap-icon my-2"
                         :tile="true"
                         :gw2-icon-props="{ size: 36 }"

@@ -16,6 +16,7 @@ const WeaponType = Object.freeze({
     Shortbow: "ShortBow",
     Staff: "Staff",
     Harpoon: "Harpoon",
+    Spear: "Spear",
     Speargun: "Speargun",
     Trident: "Trident",
     LargeBundle: "LargeBundle",

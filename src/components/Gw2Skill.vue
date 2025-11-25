@@ -187,8 +187,12 @@ export default {
             if(this.data === null) return null;
             if(this.data.slot === null) return null;
 
+            // Antiquary artifacts are completely wrong in the api so we have to manually fix them
+            if([76633, 76550, 76582, 77277, 77288, 77192, 76900].includes(this.data.id)) return "F2"; // Offensive artifacts
+            else if([76816, 76601, 76674, 76800, 76895].includes(this.data.id)) return "F3"; // Defensive artifacts
+
             // TODO: transform weapon type
-            if(this.data.slot === SkillSlot.Weapon1) return `${this.data.weapon_type} 1`;
+            else if(this.data.slot === SkillSlot.Weapon1) return `${this.data.weapon_type} 1`;
             else if(this.data.slot === SkillSlot.Weapon2) return `${this.data.weapon_type} 2`;
             else if(this.data.slot === SkillSlot.Weapon3) return `${this.data.weapon_type} 3`;
             else if(this.data.slot === SkillSlot.Weapon4) return `${this.data.weapon_type} 4`;

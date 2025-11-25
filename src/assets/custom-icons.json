@@ -1,0 +1,94 @@
+{
+    "aegis": {
+        "iconSrc": "/images/boons/aegis.png",
+        "defaultLabel": "Aegis"
+    },
+    "alacrity": {
+        "iconSrc": "/images/boons/alacrity.png",
+        "defaultLabel": "Alacrity"
+    },
+    "fury": {
+        "iconSrc": "/images/boons/fury.png",
+        "defaultLabel": "Fury"
+    },
+    "might": {
+        "iconSrc": "/images/boons/might.png",
+        "defaultLabel": "Might"
+    },
+    "protection": {
+        "iconSrc": "/images/boons/protection.png",
+        "defaultLabel": "Protection"
+    },
+    "quickness": {
+        "iconSrc": "/images/boons/quickness.png",
+        "defaultLabel": "Quickness"
+    },
+    "regeneration": {
+        "iconSrc": "/images/boons/regeneration.png",
+        "defaultLabel": "Regeneration"
+    },
+    "resistance": {
+        "iconSrc": "/images/boons/resistance.png",
+        "defaultLabel": "Resistance"
+    },
+    "resolution": {
+        "iconSrc": "/images/boons/resolution.png",
+        "defaultLabel": "Resolution"
+    },
+    "stability": {
+        "iconSrc": "/images/boons/stability.png",
+        "defaultLabel": "Stability"
+    },
+    "swiftness": {
+        "iconSrc": "/images/boons/swiftness.png",
+        "defaultLabel": "Swiftness"
+    },
+    "vigor": {
+        "iconSrc": "/images/boons/vigor.png",
+        "defaultLabel": "Vigor"
+    },
+    "condition clease": {
+        "iconSrc": "/images/facts/condition-cleanse.png",
+        "defaultLabel": "Condition Cleanse"
+    },
+    "healing": {
+        "iconSrc": "/images/facts/healing.png",
+        "defaultLabel": "Healing"
+    },
+    "radius": {
+        "iconSrc": "/images/facts/radius.png",
+        "defaultLabel": "Radius"
+    },
+    "range": {
+        "iconSrc": "/images/facts/range.png",
+        "defaultLabel": "Range"
+    },
+    "revive": {
+        "iconSrc": "/images/facts/revive.png",
+        "defaultLabel": "Revive"
+    },
+    "defiance": {
+        "iconSrc": "/images/facts/defiance.png",
+        "defaultLabel": "Defiance"
+    },
+    "weapon swap": {
+        "iconSrc": "/images/weapon-swap.png",
+        "defaultLabel": "Weapon Swap"
+    },
+    "cooldown": {
+        "iconSrc": "/images/facts/recharge.png",
+        "defaultLabel": "Cooldown"
+    },
+    "combo": {
+        "iconSrc": "/images/facts/combo.png",
+        "defaultLabel": "Combo"
+    },
+    "initiative": {
+        "iconSrc": "/images/facts/initiative.png",
+        "defaultLabel": "Initiative"
+    },
+    "antiquary": {
+        "iconSrc": "/images/professions/antiquary.png",
+        "defaultLabel": "Antiquary"
+    }
+}

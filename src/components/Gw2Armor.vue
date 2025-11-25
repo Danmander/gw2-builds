@@ -144,21 +144,27 @@ export default {
             if(this.infix === ArmorInfix.Harrier) {
                 if(this.type === ArmorType.Headgear) {
                     if(this.weightClass === ArmorWeightClass.Light) return 85161;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 85172;
                 }
                 else if(this.type === ArmorType.Shoulders) {
                     if(this.weightClass === ArmorWeightClass.Light) return 85089;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 85183;
                 }
                 else if(this.type === ArmorType.Chest) {
                     if(this.weightClass === ArmorWeightClass.Light) return 85098;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 84923;
                 }
                 else if(this.type === ArmorType.Gloves) {
                     if(this.weightClass === ArmorWeightClass.Light) return 85004;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 84983;
                 }
                 else if(this.type === ArmorType.Leggings) {
                     if(this.weightClass === ArmorWeightClass.Light) return 84926;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 85149;
                 }
                 else if(this.type === ArmorType.Boots) {
                     if(this.weightClass === ArmorWeightClass.Light) return 85317;
+                    else if(this.weightClass === ArmorWeightClass.Medium) return 85343;
                 }
             }
             
