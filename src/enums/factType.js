@@ -15,6 +15,7 @@ const FactType = Object.freeze({
     AttributeAdjust: "AttributeAdjust",
     StunBreak: "StunBreak",
     Percent: "Percent",
-    BuffConversion: "BuffConversion"
+    BuffConversion: "BuffConversion",
+    Unblockable: "Unblockable"
 });
 export default FactType;

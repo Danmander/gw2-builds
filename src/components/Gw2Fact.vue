@@ -76,6 +76,9 @@
             <span v-else-if="fact.type === FactType.BuffConversion">
                 Gain {{ transformAttribute(fact.target) }} based on a percentage of {{ transformAttribute(fact.source) }}: {{ fact.percent }}%
             </span>
+            <span v-else-if="fact.type === FactType.Unblockable">
+                {{ fact.text }}
+            </span>
             <span
                 v-else
                 class="text-error"
