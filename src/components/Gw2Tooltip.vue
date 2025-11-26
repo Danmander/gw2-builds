@@ -4,7 +4,7 @@
         class="tooltip"
         content-class="tooltip-content pa-0"
         z-index="1"
-        max-width="400"
+        width="400"
         :disabled="disabled"
         :eager="false"
     >

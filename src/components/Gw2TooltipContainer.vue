@@ -8,10 +8,16 @@
                 {{ title }}
             </span>
             <div
+                v-if="initiativeCost !== null"
+                class="initiative"
+            >
+                {{ initiativeCost }} <img src="../../public/images/facts/initiative.png">
+            </div>
+            <div
                 v-if="recharge !== null"
                 class="recharge"
             >
-                {{ recharge }} <img src="../assets/images/recharge.png">
+                {{ recharge }} <img src="../../public/images/facts/recharge.png">
             </div>
         </div>
         <div
@@ -41,6 +47,10 @@ export default {
         },
         subtitle: {
             type: String,
+            default: null
+        },
+        initiativeCost: {
+            type: Number,
             default: null
         },
         recharge: {
@@ -87,13 +97,15 @@ export default {
     font-size: 1.075em;
 }
 
-.recharge {
+.recharge,
+.initiative {
     position: absolute;
     right: 0px;
     top: 0px;
 }
 
-.recharge img {
+.recharge img,
+.initiative img {
     height: 20px;
     width: 20px;
     vertical-align: middle;

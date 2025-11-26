@@ -18,6 +18,7 @@
                 :title="data?.name"
                 :description="data?.description"
                 :facts="data?.facts"
+                :tooltip-container-props="{'initiative-cost': data?.initiative ?? null}"
                 :subtitle="`(${defaultKeybind})`"
             >
                 <template #bottom>

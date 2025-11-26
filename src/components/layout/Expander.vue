@@ -2,6 +2,7 @@
     <v-expansion-panels
         :model-value="expand ? ['tab'] : []"
         flat
+        eager
     >
         <v-expansion-panel
             value="tab"

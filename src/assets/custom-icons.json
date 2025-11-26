@@ -55,6 +55,10 @@
         "iconSrc": "/images/facts/healing.png",
         "defaultLabel": "Healing"
     },
+    "barrier": {
+        "iconSrc": "/images/facts/barrier.png",
+        "defaultLabel": "Barrier"
+    },
     "radius": {
         "iconSrc": "/images/facts/radius.png",
         "defaultLabel": "Radius"
@@ -90,5 +94,9 @@
     "antiquary": {
         "iconSrc": "/images/professions/antiquary.png",
         "defaultLabel": "Antiquary"
+    },
+    "specter": {
+        "iconSrc": "/images/professions/specter.png",
+        "defaultLabel": "Specter"
     }
 }

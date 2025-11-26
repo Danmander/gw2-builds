@@ -1,0 +1,65 @@
+{
+    "title": null,
+    "description": null,
+    "armor": {
+        "weightClass": null,
+        "runeId": null,
+        "infixes": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    "trinkets": {
+        "infixes": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    "weaponSets": [
+        {
+            "weapons": [
+                {
+                    "type": null,
+                    "infix": null,
+                    "sigilIds": []
+                }
+            ]
+        }
+    ],
+    "relicId": null,
+    "foodId": null,
+    "utilityId": null,
+    "utilitySkillIds": [
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "traitLines": [
+        {
+            "id": null,
+            "traitIds": []
+        },
+        {
+            "id": null,
+            "traitIds": []
+        },
+        {
+            "id": null,
+            "traitIds": []
+        }
+    ],
+    "skillNotes": null,
+    "traitNotes": null,
+    "rotationNotes": null,
+    "youtubeVideoCodes": []
+}

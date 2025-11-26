@@ -1,6 +1,14 @@
 <template>
     <template v-if="build !== null">
-        <h1><markdown-renderer :markdown="build.title" /></h1>    
+        <h1>
+            <markdown-renderer :markdown="build.title" />
+        </h1>
+        <container
+            v-if="build.description" 
+            class="mb-2"
+        >
+            <markdown-renderer :markdown="build.description" />
+        </container>
         <build
             style="width: auto;"
             :armor-weight-class="build.armor.weightClass"
@@ -70,7 +78,6 @@ import Expander from '../../components/layout/Expander.vue';
 import Container from '../../components/layout/Container.vue';
 import MarkdownRenderer from '../../components/markdown/MarkdownRenderer.vue';
 import LZString from 'lz-string';
-import ExampleBuild from '../../../example-build.json';
 
 export default {
     components: {
@@ -81,11 +88,13 @@ export default {
     },
     created() {
         const searchParameters = new URLSearchParams(window.location.search);
-        if(searchParameters.has("build")) this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(searchParameters.get("build")));
+
+        if(this.$route.meta.buildData !== undefined) this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(this.$route.meta.buildData));
+        else if(searchParameters.has("build")) this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(searchParameters.get("build")));
     },
     data() {
         return {
-            build: ExampleBuild
+            build: null
         }
     },
 }

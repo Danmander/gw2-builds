@@ -1,5 +1,6 @@
 <template>
     <h1>Build Editor</h1>
+    {{ buildCode }}
     <a
         class="d-block"
         :href="buildEditorLink"
@@ -50,6 +51,11 @@
                         hide-details
                         density="compact"
                     />
+                </v-col>
+
+                <v-col cols="12">
+                    <h2>Description</h2>
+                    <markdown-editor v-model="build.description" />
                 </v-col>
         
                 <!-- Videos -->
@@ -268,6 +274,7 @@ import { ArmorInfix, TrinketInfix } from '../../enums/infixUpgrade.js';
 import ArmorWeightClass from '../../enums/armorWeightClass.js';
 import TraitLineSelector from "../../components/build-editor-page/TraitLineSelector.vue";
 import WeaponSetSelector from '../../components/build-editor-page/WeaponSetSelector.vue';
+import emptyBuildTemplate from '../../../build-template.json';
 
 export default {
     components: {
@@ -281,74 +288,13 @@ export default {
             TrinketInfix,
 
             activeTab: null,
-            build: {
-                title: null,
-                armor: {
-                    weightClass: null,
-                    runeId: null,
-                    infixes: [
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                    ]
-                },
-                trinkets: {
-                    infixes: [
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                    ]
-                },
-                weaponSets: [
-                    {
-                        weapons: [
-                            {
-                                type: null,
-                                infix: null,
-                                sigilIds: []
-                            }
-                        ]
-                    }
-                ],
-                relicId: null,
-                foodId: null,
-                utilityId: null,
-                utilitySkillIds: [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                traitLines: [
-                    {
-                        id: null,
-                        traitIds: []
-                    },
-                    {
-                        id: null,
-                        traitIds: []
-                    },
-                    {
-                        id: null,
-                        traitIds: []
-                    }
-                ],
-                skillNotes: null,
-                traitNotes: null,
-                rotationNotes: null,
-                youtubeVideoCodes: []
-            }
+            build: emptyBuildTemplate
         }
     },
     mounted() {
         const searchParameters = new URLSearchParams(window.location.search);
+
+        // TODO: merge this with the empty template instead of overwriting it so new properties are automatically added
         if(searchParameters.has("build")) this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(searchParameters.get("build")));
     },
     computed: {
