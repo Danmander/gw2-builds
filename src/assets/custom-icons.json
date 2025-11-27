@@ -119,5 +119,30 @@
     "untamed": {
         "iconSrc": "/images/professions/untamed.png",
         "defaultLabel": "Untamed"
+    },
+    
+    "brown bear": {
+        "iconSrc": "/images/pets/brown-bear.png",
+        "defaultLabel": "Brown Bear"
+    },
+    "electric wyvern": {
+        "iconSrc": "/images/pets/electric-wyvern.png",
+        "defaultLabel": "Electric Wyvern"
+    },
+    "jacaranda": {
+        "iconSrc": "/images/pets/jacaranda.png",
+        "defaultLabel": "Jacaranda"
+    },
+    "rock gazelle": {
+        "iconSrc": "/images/pets/rock-gazelle.png",
+        "defaultLabel": "Rock Gazelle"
+    },
+    "siege turtle": {
+        "iconSrc": "/images/pets/siege-turtle.png",
+        "defaultLabel": "Siege Turtle"
+    },
+    "white tiger": {
+        "iconSrc": "/images/pets/white-tiger.png",
+        "defaultLabel": "White Tiger"
     }
 }
