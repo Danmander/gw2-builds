@@ -111,5 +111,9 @@
     "galeshot": {
         "iconSrc": "/images/professions/galeshot.png",
         "defaultLabel": "Galeshot"
+    },
+    "untamed": {
+        "iconSrc": "/images/professions/untamed.png",
+        "defaultLabel": "Untamed"
     }
 }
