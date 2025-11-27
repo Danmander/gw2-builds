@@ -107,5 +107,9 @@
     "ranger": {
         "iconSrc": "/images/professions/ranger.png",
         "defaultLabel": "Ranger"
+    },
+    "galeshot": {
+        "iconSrc": "/images/professions/galeshot.png",
+        "defaultLabel": "Galeshot"
     }
 }
