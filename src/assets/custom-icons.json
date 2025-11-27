@@ -47,6 +47,12 @@
         "iconSrc": "/images/boons/vigor.png",
         "defaultLabel": "Vigor"
     },
+
+    "immobilize": {
+        "iconSrc": "/images/conditions/immobilize.png",
+        "defaultLabel": "Immobilize"
+    },
+
     "condition cleanse": {
         "iconSrc": "/images/facts/condition-cleanse.png",
         "defaultLabel": "Condition Cleanse"
