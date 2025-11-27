@@ -79,6 +79,10 @@
         "iconSrc": "/images/weapon-swap.png",
         "defaultLabel": "Weapon Swap"
     },
+    "auto attack chain": {
+        "iconSrc": "/images/auto-attack-chain.png",
+        "defaultLabel": "Auto Attack Chain"
+    },
     "cooldown": {
         "iconSrc": "/images/facts/recharge.png",
         "defaultLabel": "Cooldown"
@@ -91,6 +95,7 @@
         "iconSrc": "/images/facts/initiative.png",
         "defaultLabel": "Initiative"
     },
+
     "antiquary": {
         "iconSrc": "/images/professions/antiquary.png",
         "defaultLabel": "Antiquary"
@@ -98,5 +103,9 @@
     "specter": {
         "iconSrc": "/images/professions/specter.png",
         "defaultLabel": "Specter"
+    },
+    "ranger": {
+        "iconSrc": "/images/professions/ranger.png",
+        "defaultLabel": "Ranger"
     }
 }

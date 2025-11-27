@@ -134,9 +134,11 @@ export default {
             // TODO: add more infix/weapon combinations
             if(this.infix === WeaponInfix.Harrier) {
                 if(this.type === WeaponType.Dagger) return 85051;
+                else if(this.type === WeaponType.Mace) return 84912;
                 else if(this.type === WeaponType.Pistol) return 84878;
                 else if(this.type === WeaponType.Scepter) return 85027;
                 else if(this.type === WeaponType.Spear) return 85131;
+                else if(this.type === WeaponType.Staff) return 85112;
                 else if(this.type === WeaponType.Warhorn) return 84973;
             }
             
