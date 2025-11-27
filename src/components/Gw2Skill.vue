@@ -188,16 +188,17 @@ export default {
             if(this.data === null) return null;
             if(this.data.slot === null) return null;
 
-            // Antiquary artifacts are completely wrong in the api so we have to manually fix them
-            if([76633, 76550, 76582, 77277, 77288, 77192, 76900].includes(this.data.id)) return "F2"; // Offensive artifacts
-            else if([76816, 76601, 76674, 76800, 76895].includes(this.data.id)) return "F3"; // Defensive artifacts
+            let weaponType = this.data.weapon_type;
+
+            // Galeshot cyclone bow skills don't show cyclone bow as the weapon
+            if([77183, 76664, 77319, 77012, 77334, 77174, 76722].includes(this.data.id)) weaponType = "Cyclone Bow";
 
             // TODO: transform weapon type
-            else if(this.data.slot === SkillSlot.Weapon1) return `${this.data.weapon_type} 1`;
-            else if(this.data.slot === SkillSlot.Weapon2) return `${this.data.weapon_type} 2`;
-            else if(this.data.slot === SkillSlot.Weapon3) return `${this.data.weapon_type} 3`;
-            else if(this.data.slot === SkillSlot.Weapon4) return `${this.data.weapon_type} 4`;
-            else if(this.data.slot === SkillSlot.Weapon5) return `${this.data.weapon_type} 5`;
+            if(this.data.slot === SkillSlot.Weapon1) return `${weaponType} 1`;
+            else if(this.data.slot === SkillSlot.Weapon2) return `${weaponType} 2`;
+            else if(this.data.slot === SkillSlot.Weapon3) return `${weaponType} 3`;
+            else if(this.data.slot === SkillSlot.Weapon4) return `${weaponType} 4`;
+            else if(this.data.slot === SkillSlot.Weapon5) return `${weaponType} 5`;
             else if(this.data.slot === SkillSlot.Profession1) return "F1";
             else if(this.data.slot === SkillSlot.Profession2) return "F2";
             else if(this.data.slot === SkillSlot.Profession3) return "F3";

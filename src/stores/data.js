@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { debouncedBatch } from '../services/batchService';
+import SkillSlot from '../enums/skillSlot';
 
 export const useDataStore = defineStore('data', () => {
     // Batches
@@ -46,6 +47,12 @@ export const useDataStore = defineStore('data', () => {
             batchSkillRequest({
                 id: skillId,
                 resolve: (skillData) => {
+                    // Clean up incorrect api data:
+                    // Antiquary's artifacts have the wrong slot data
+                    if ([76633, 76550, 76582, 77277, 77288, 77192, 76900].includes(skillData.id)) skillData.slot = SkillSlot.Profession2; // Offensive artifacts
+                    else if ([76816, 76601, 76674, 76800, 76895].includes(skillData.id)) skillData.slot = SkillSlot.Profession3; // Defensive artifacts
+
+                    // Save and resolve the skill lookup
                     resourceCache.skills[skillId] = skillData;
                     resolve(skillData);
                 },
