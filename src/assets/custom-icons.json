@@ -47,7 +47,7 @@
         "iconSrc": "/images/boons/vigor.png",
         "defaultLabel": "Vigor"
     },
-    "condition clease": {
+    "condition cleanse": {
         "iconSrc": "/images/facts/condition-cleanse.png",
         "defaultLabel": "Condition Cleanse"
     },
