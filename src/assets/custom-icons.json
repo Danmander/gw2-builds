@@ -96,7 +96,7 @@
         "defaultLabel": "Initiative"
     },
     "downed": {
-        "iconSrc": "/images/facts/downed.png",
+        "iconSrc": "/images/downed.png",
         "defaultLabel": "Downed"
     },
 
