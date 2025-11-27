@@ -95,6 +95,10 @@
         "iconSrc": "/images/facts/initiative.png",
         "defaultLabel": "Initiative"
     },
+    "downed": {
+        "iconSrc": "/images/facts/downed.png",
+        "defaultLabel": "Downed"
+    },
 
     "antiquary": {
         "iconSrc": "/images/professions/antiquary.png",
