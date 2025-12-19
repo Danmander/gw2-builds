@@ -1,20 +1,28 @@
 <template>
     <h1>Build Editor</h1>
-    {{ buildCode }}
-    <a
-        class="d-block"
-        :href="buildEditorLink"
-        target="_blank"
-    >
+    <div>
+        Build code
+        <v-icon @click="() => copyToClipboard(buildCode)">
+            mdi-content-copy
+        </v-icon>
+    </div>
+    <div>
         A link to this editor including all the data so you can continue working on it on a later date.
-    </a>
-    <a
-        class="d-block"
-        :href="buildLink"
-        target="_blank"
-    >
-        A link to the build page, share this with your users so they can view the build.
-    </a>
+        <v-icon @click="() => copyToClipboard(buildEditorLink)">
+            mdi-content-copy
+        </v-icon>
+    </div>
+    <div>
+        <a
+            :href="buildLink"
+            target="_blank"
+        >
+            A link to the build page, share this with your users so they can view the build.
+        </a>
+        <v-icon @click="() => copyToClipboard(buildLink)">
+            mdi-content-copy
+        </v-icon>
+    </div>
     <div>
         You might need to use a URL shortener like <a href="https://shorter.me/">shorter.me</a> as these links can become quite long.
     </div>
@@ -343,6 +351,13 @@ export default {
         },
         removeWeaponSet(index) {
             this.build.weaponSets.splice(index, 1);
+        },
+        copyToClipboard(content) {
+            if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(content);
+            } else {
+                alert(`Failed to automatically copy to your clipboard, you'll have to do it manually 😢\n\n${this.value}`);
+            }
         }
     }
 }

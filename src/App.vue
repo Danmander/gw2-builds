@@ -8,6 +8,11 @@
 
 <script>
 export default {
+    created() {
+        this.$router.afterEach((to) => {
+            document.title = to.meta.title ? `Dánmander - ${to.meta.title}` : "Dánmander";
+        })
+    }
 }
 </script>
 
