@@ -205,7 +205,12 @@
             md="6"
         >
             <div class="position-sticky">
-                <slot name="rotation" />
+                <div class="mb-2">
+                    <slot name="rotation" />
+                </div>
+                <div class="mb-2">
+                    <slot name="breakbar-notes" />
+                </div>
             </div>
         </v-col>
         <v-col

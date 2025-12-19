@@ -9,7 +9,10 @@
             class="expansion-panel elevation-1"
         >
             <v-expansion-panel-title class="title">
-                {{ title }}
+                <slot name="title" />
+                <span v-if="!$slots.title">
+                    {{ title }}
+                </span>
             </v-expansion-panel-title>
             <v-expansion-panel-text>
                 <slot name="default" />

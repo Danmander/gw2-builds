@@ -39,6 +39,11 @@ export const useDataStore = defineStore('data', () => {
 
     function getSkill(skillId) {
         return new Promise((resolve, reject) => {
+            if(skillId === "" || skillId === undefined || skillId === null) {
+                reject();
+                return;
+            }
+
             if (resourceCache.skills[skillId] !== undefined) {
                 resolve(resourceCache.skills[skillId]);
                 return;
@@ -46,7 +51,7 @@ export const useDataStore = defineStore('data', () => {
 
             batchSkillRequest({
                 id: skillId,
-                resolve: (skillData) => {
+                resolve: (skillData) => {                    
                     // Clean up incorrect api data:
                     // Antiquary's artifacts have the wrong slot data
                     if ([76633, 76550, 76582, 77277, 77288, 77192, 76900].includes(skillData.id)) skillData.slot = SkillSlot.Profession2; // Offensive artifacts

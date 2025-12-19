@@ -47,10 +47,10 @@ export default {
         lines() {
             // We add a \n to the end of the text so we can always assume a line ends with \n which makes it easier to regex
             // ((?:\|(?:[^|]+\|)*\n)+) is a markdown table
-            // ((?:- [^\n-]+\n)+) is a unordered list
-            // ((?:[0-9]+\. [^\n-]+\n)+) is an ordered list
+            // ((?:- [^\n]+\n)+) is a unordered list
+            // ((?:[0-9]+\. [^\n]+\n)+) is an ordered list
             // (?:([^\n]*)\n) is any old text
-            return [...((this.markdown ? this.markdown : "").trim() + "\n").matchAll(/((?:\|(?:[^|]+\|)*\n)+)|((?:- [^\n-]*\n)+)|((?:[0-9]+\. [^\n-]*\n)+)|(?:([^\n]*)\n)/gi)];
+            return [...((this.markdown ? this.markdown : "").trim() + "\n").matchAll(/((?:\|(?:[^|]+\|)*\n)+)|((?:- [^\n]*\n)+)|((?:[0-9]+\. [^\n]*\n)+)|(?:([^\n]*)\n)/gi)];
         },
     }
 }

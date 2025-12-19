@@ -262,6 +262,10 @@
                     <h2>Rotation Notes</h2>
                     <markdown-editor v-model="build.rotationNotes" />
                 </v-col>
+                <v-col cols="12">
+                    <h2>Breakbar Notes</h2>
+                    <markdown-editor v-model="build.defianceNotes" />
+                </v-col>
             </v-row>
         </v-tabs-window-item>
     </v-tabs-window>

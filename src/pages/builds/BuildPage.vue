@@ -52,6 +52,19 @@
                 </container>
             </template>
             <template
+                v-if="build.defianceNotes"
+                #breakbar-notes
+            >
+                <expander>
+                    <template #title>
+                        <markdown-renderer markdown="[icon:defiance] bars" />
+                    </template>
+                    <template #default>
+                        <markdown-renderer :markdown="build.defianceNotes" />
+                    </template>
+                </expander>
+            </template>
+            <template
                 v-if="build.youtubeVideoCodes"
                 #video
             >
