@@ -58,8 +58,8 @@ export default {
             // \*\*[^*]+\*\* is for bold
             // \*\*\*[^*]+\*\*\* is for bold and italic
             // -> is for a custom rendered arrow icon
-            // \[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon):?[^[\]]+] is for a component
-            const nodes = this.markdown.split(/((?:\[[^()[\]]+\]\([^()[\]]*\))|(?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|weapon|icon):?[^[\]]+]))/gi);
+            // \[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|rune|infusion|weapon):?[^[\]]+] is for a component
+            const nodes = this.markdown.split(/((?:\[[^()[\]]+\]\([^()[\]]*\))|(?:\*[^*]+\*)|(?:\*\*[^*]+\*\*)|(?:\*\*\*[^*]+\*\*\*)|(?:->)|(?:\[(?:armor|consumable|relic|skill|traitline|trait|trinket|component|rune|infusion|weapon|icon):?[^[\]]+]))/gi);
             for (let index = 0; index < nodes.length; index++) {
                 const node = nodes[index];
 
@@ -98,7 +98,7 @@ export default {
                 }
 
                 // Handle components in the text
-                const componentMatch = node.match(/^\[(armor|consumable|relic|skill|traitline|trait|trinket|component|weapon|icon):?([^[\]]+)]$/i);
+                const componentMatch = node.match(/^\[(armor|consumable|relic|skill|traitline|trait|trinket|component|rune|infusion|weapon|icon):?([^[\]]+)]$/i);
                 if(componentMatch !== null) {
                     const type = componentMatch[1].toLowerCase();
                     const properties = componentMatch[2].split(":");
@@ -201,7 +201,7 @@ export default {
                                 }
                             }
                         });
-                    } else if(["component", "relic", "rune", "infusion"].includes(type) && properties.length >= 1) {
+                    } else if(["component", "rune", "infusion"].includes(type) && properties.length >= 1) {
                         components.push({
                             key: getKey(node),
                             type: Gw2UpgradeComponent,
