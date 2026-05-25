@@ -1,10 +1,17 @@
 <template>
     <h1>Build Editor</h1>
     <div>
-        Build code
-        <v-icon @click="() => copyToClipboard(buildCode)">
-            mdi-content-copy
-        </v-icon>
+        <v-text-field
+            v-model="buildCode"
+            hide-details
+            density="compact"
+        >
+            <template #append>
+                <v-icon @click="() => copyToClipboard(buildCode)">
+                    mdi-content-copy
+                </v-icon>
+            </template>
+        </v-text-field>
     </div>
     <div>
         A link to this editor including all the data so you can continue working on it on a later date.
@@ -307,7 +314,7 @@ export default {
         const searchParameters = new URLSearchParams(window.location.search);
 
         // TODO: merge this with the empty template instead of overwriting it so new properties are automatically added
-        if(searchParameters.has("build")) this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(searchParameters.get("build")));
+        if(searchParameters.has("build")) this.importBuildFromCode(searchParameters.get("build"));
     },
     computed: {
         armorWeightClassOptions() {
@@ -326,9 +333,14 @@ export default {
             });
         },
 
-        buildCode() {
-            if(this.build === null) return null;
-            return LZString.compressToEncodedURIComponent(JSON.stringify(this.build));
+        buildCode: {
+            get() {
+                if(this.build === null) return null;
+                return LZString.compressToEncodedURIComponent(JSON.stringify(this.build));
+            },
+            set(value) {
+                this.importBuildFromCode(value);
+            }
         },
         buildEditorLink() {
             return `${window.location.protocol}//${window.location.host}/build-editor?build=${this.buildCode}`;
@@ -338,6 +350,9 @@ export default {
         }
     },
     methods: {
+        importBuildFromCode(code) {
+            this.build = JSON.parse(LZString.decompressFromEncodedURIComponent(code));
+        },
         addYoutubeVideoCode(){
             this.build.youtubeVideoCodes.push(null);
         },

@@ -150,5 +150,29 @@
     "white tiger": {
         "iconSrc": "/images/pets/white-tiger.png",
         "defaultLabel": "White Tiger"
+    },
+    "sylvari": {
+        "iconSrc": "/images/races/sylvari.png",
+        "defaultLabel": "Sylvari"
+    },
+    "asura": {
+        "iconSrc": "/images/races/asura.png",
+        "defaultLabel": "Asura"
+    },
+    "charr": {
+        "iconSrc": "/images/races/charr.png",
+        "defaultLabel": "Charr"
+    },
+    "human": {
+        "iconSrc": "/images/races/human.png",
+        "defaultLabel": "Human"
+    },
+    "norn": {
+        "iconSrc": "/images/races/norn.png",
+        "defaultLabel": "Norn"
+    },
+    "sabir": {
+        "iconSrc": "/images/bosses/sabir.png",
+        "defaultLabel": "Cardinal Sabir"
     }
 }
