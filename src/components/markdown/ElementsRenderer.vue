@@ -201,7 +201,7 @@ export default {
                                 }
                             }
                         });
-                    } else if(type === "component" && properties.length >= 1) {
+                    } else if(["component", "relic", "rune", "infusion"].includes(type) && properties.length >= 1) {
                         components.push({
                             key: getKey(node),
                             type: Gw2UpgradeComponent,
