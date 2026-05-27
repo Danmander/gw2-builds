@@ -6,7 +6,7 @@
                 @click="searchSkillOnWiki()"
                 @contextmenu.prevent="showNextSubkill()"
                 :show-label="!tile"
-                :label="data?.name"
+                :label="label"
                 :icon="data?.icon"
                 :size="tile ? 56 : 24"
                 v-bind="{ ...props, ...gw2IconProps }"
@@ -86,6 +86,7 @@
 <script>
 import SkillSlot from '../enums/skillSlot.js';
 import { useDataStore } from '../stores/data.js';
+import { useUserPreferencesStore } from '../stores/user-preferences.js';
 import Gw2Tooltip from './Gw2Tooltip.vue';
 import Gw2SkillAndTraitTooltip from './Gw2SkillAndTraitTooltip.vue';
 import Gw2Icon from './Gw2Icon.vue';
@@ -118,7 +119,8 @@ export default {
     },
     setup() {
         const dataStore = useDataStore();
-        return { dataStore };
+        const userPreferencesStore = useUserPreferencesStore();
+        return { dataStore, userPreferencesStore };
     },
     data() {
         return {
@@ -184,6 +186,20 @@ export default {
         });
     },
     computed: {
+        label() {
+            if(this.defaultKeybind === "Utility") {
+                // Utility skills don't have a default keybind as the user can put them in any of the three utility slots.
+                return this.data?.name
+            } else if(["F1", "F2", "F3", "F4", "F5"].includes(this.defaultKeybind)) {
+                if(this.userPreferencesStore.showKeybindAsProfessionSkillName) return this.defaultKeybind;
+            } else if(["Heal", "Elite"].includes(this.defaultKeybind)) {
+                if(this.userPreferencesStore.showKeybindAsSlotSkillName) return this.defaultKeybind;
+            } else /* We don't check explicitely for weapon slot labels as we have stuff like shrouds also falling under this category, so we just do a catch all, that's easier */{
+                if(this.userPreferencesStore.showKeybindAsWeaponSkillName) return this.defaultKeybind;
+            }
+            
+            return this.data?.name;
+        },
         defaultKeybind() {
             if(this.data === null) return null;
             if(this.data.slot === null) return null;
